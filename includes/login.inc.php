@@ -4,6 +4,8 @@ Alexander Murie
 12/08/2018
 Eagleweb
 
+
+Controller
  -->
 
 <?php
@@ -13,7 +15,7 @@ session_start();
 if (isset($_POST['submit'])) {
 
 	include 'dbh.inc.php';
-
+	
 	$username = mysqli_real_escape_string($conn, $_POST['username']);
 	$pwd = mysqli_real_escape_string($conn, $_POST['pwd']);
 
@@ -29,7 +31,7 @@ if (isset($_POST['submit'])) {
 
 			$resultCheck = mysqli_num_rows($result);
 			if ($resultCheck < 1){
-				header("Location: ../index.php?login=errorUsername"); //remove these, debugging
+				header("Location: ../index.php?login=errorUsername"); //remove these error specifications, debugging
 				exit();
 			} else {
 
@@ -42,6 +44,8 @@ if (isset($_POST['submit'])) {
 						exit();
 					} elseif ($hashedPwdCheck == true){
 						// log in user here
+
+						
 						$_SESSION['u_id'] = $row['user_id'];
 						$_SESSION['u_first'] = $row['user_first'];
 						$_SESSION['u_last'] = $row['user_email'];
@@ -55,6 +59,8 @@ if (isset($_POST['submit'])) {
 							
 						header("Location: ../index.php?login=success");
 						exit();
+						
+
 
 					}
 				}
@@ -66,3 +72,5 @@ if (isset($_POST['submit'])) {
 		header("Location: ../index.php?login=errorGeneral");
 		exit();
 	}
+
+

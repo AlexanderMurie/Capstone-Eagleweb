@@ -136,7 +136,76 @@ input, select {
     padding-top: 20px;
 }
 
-.modal {
+.areaModal {
+    display:none;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.8);
+    
+}
+
+.nestModal {
+    display:none;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.8);
+    
+}
+
+.clearModal {
+    display:none;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.8);
+    
+}
+
+#mapid {
+  position: absolute;
+  width: 1000px;
+  height: 600px;
+  top: 130px;
+  left: 400px;
+}
+
+.map {
+  position: absolute;
+  z-index: 2;
+  width: 1000px;
+  height: 600px;
+  top: 130px;
+  left: 400px;
+}
+
+.genModal {
+    display:none;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.8);
+    
+}
+
+.exportModal {
     display:none;
     position: fixed;
     z-index: 1;
@@ -165,13 +234,61 @@ input, select {
     to{opacity: 1}
 }
 
-.closeButton {
+.closeButtonNest {
     color: #ccc;
     float: right;
     font-size: 30px;
 }
 
-.closeButton:hover, .closeButton:focus {
+.closeButtonNest:hover, .closeButtonNest:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.closeButtonArea {
+    color: #ccc;
+    float: right;
+    font-size: 30px;
+}
+
+.closeButtonArea:hover, .closeButtonArea:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.closeButtonClear {
+    color: #ccc;
+    float: right;
+    font-size: 30px;
+}
+
+.closeButtonClear:hover, .closeButtonClear:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.closeButtonGen {
+    color: #ccc;
+    float: right;
+    font-size: 30px;
+}
+
+.closeButtonGen:hover, .closeButtonGen:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.closeButtonExport {
+    color: #ccc;
+    float: right;
+    font-size: 30px;
+}
+
+.closeButtonExport:hover, .closeButtonExport:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;

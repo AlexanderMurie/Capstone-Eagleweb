@@ -9,9 +9,11 @@ Eagleweb
 
 <?php 
 
+
 $dbServername = "localhost"; /* Get UCT servername*/ 
 $dbUsername = "root";
 $dbPassword = "";
 $dbName = "Eagleweblogin";
-
 $conn = mysqli_connect($dbServername, $dbUsername, $dbPassword, $dbName);
+	
+

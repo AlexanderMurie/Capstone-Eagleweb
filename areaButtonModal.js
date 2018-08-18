@@ -27,6 +27,7 @@ function closeModal() {
 	modalarea.style.display = 'none';
 }
 
+function clickOutside(e) {
 	if (e.target == modalarea){
 		modalarea.style.display = 'none';
 	}

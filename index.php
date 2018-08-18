@@ -9,6 +9,10 @@ View
  -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!--test this, w3school -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
+    integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+    crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js" integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q==" crossorigin=""></script>
 
 
 <?php
@@ -20,7 +24,12 @@ View
 		<h2>Eagleweb</h2>
 		<?php
 			if (isset($_SESSION['u_id'])) {
+				
 
+				echo '<div id="mapid"></div>
+						<script src="mapStuff.js"></script>
+						';
+				
 				echo '<div class = "sidepanelLeft">
 						<ul>
 						<li><button id="buttonArea" class="buttonArea"><i class="fa fa-home"></i></button></li>
@@ -81,33 +90,7 @@ View
 					';
 
 					
-					echo '
-						<body>
-
-  						<div id="map" class="map">
-  						<div id="mapid"></div>
-  
-
-
-						<script>
-						//Import Open Terrain Layer Tile Map
-						var mymap = L.map("mapid").setView([-28.378272, 23.913711], 5);
-						var Stamen_Terrain = L.tileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}{r}.{ext}", {
-						attribution: "Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>",
-						subdomains: "abcd",
-						minZoom: 0,
-						maxZoom: 18,
-						ext: "png"
-						});
-						mymap.addLayer(Stamen_Terrain);
-						//Simple Scale Bar, must have on map following basic cartographic principles.
-						L.control.scale().addTo(mymap);
-
-
-						</script>
-						</body>
-						</div>
-						';
+					
 
 						
 
@@ -136,28 +119,6 @@ View
 						</body>	
 
 						';
-
-
-
-
-
-
-
-						//font-awesome icons
-
-				/* - redirect to webmap here, checking if user is logged in
-				   - add some way of checking if username = "Megatron" or something
-				   - handle user agreement that data will be collected
-				   - figure out how to farm user session data (add nestData, boundaryArea column to db?)
-
-
-
-
-
-
-				 */
-
-
 
 
 			}

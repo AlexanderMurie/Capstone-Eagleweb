@@ -175,22 +175,19 @@ input, select {
     
 }
 
-#mapid {
-  position: absolute;
-  width: 1000px;
-  height: 600px;
-  top: 130px;
-  left: 400px;
+.test {
+    color: #ccc;
+    z-index: 1;
+    position: absolute;
+
 }
 
-.map {
-  position: absolute;
-  z-index: 2;
-  width: 1000px;
-  height: 600px;
-  top: 130px;
-  left: 400px;
-}
+#mapid {
+    position: absolute;
+    z-index: 1;
+    width: 100%
+    height: 100%
+  }
 
 .genModal {
     display:none;

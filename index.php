@@ -9,9 +9,7 @@ View
  -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!--test this, w3school -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
-    integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
-    crossorigin=""/>
+<link rel="stylesheet" type="text/css" href="mapstyle.css">
 <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js" integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q==" crossorigin=""></script>
 
 
@@ -22,20 +20,22 @@ View
 <section class="main-container">
 	<div class="main-wrapper">
 		<h2>Eagleweb</h2>
+
 		<?php
 			if (isset($_SESSION['u_id'])) {
-				
+				   echo '<div id="mapid"></div>
+          <script src="mapStuff.js"></script>
 
-				echo '<div id="mapid"></div>
-						<script src="mapStuff.js"></script>
-						';
-				
+          ';
+
+
 				echo '<div class = "sidepanelLeft">
 						<ul>
-						<li><button id="buttonArea" class="buttonArea"><i class="fa fa-home"></i></button></li>
-						<li><button id="buttonNest" class="buttonNest"><i class="fa fa-folder"></i></button></li>
-						<li><button id="buttonClear" class="buttonClear"><i class="fa fa-trash"></i></button></li>
+						<li><button id="buttonArea" class="buttonArea">AREA</button></li>
+						<li><button id="buttonNest" class="buttonNest">NESTS</button></li>
+						<li><button id="buttonClear" class="buttonClear">CLEAR</button></li>
 						<li><button id="buttonGenerate" class="buttonGenerate">GENERATE</button></li>
+            
 						</ul>
 						</div>
 
@@ -44,7 +44,8 @@ View
 							<div class="modal-content">
 								<span class="closeButtonNest">&times;</span>
 								
-								<p>nests (modal)</p>
+								<h1 align="center">SELECT YOUR NEST DATA</h1>
+                <button class="uploadButton">BROWSE</button>
 
 							</div>
 						</div>
@@ -89,6 +90,8 @@ View
 					</body>					
 					';
 
+
+
 					
 					
 
@@ -98,8 +101,11 @@ View
 				
 				if (isset($_SESSION['u_isMegan'])) { 
 				
-
+        
 				}
+
+
+
 				echo '<div>
 						<ul>
 						<li><button id="buttonExport" class="buttonExport">EXPORT</button></li>
@@ -125,7 +131,16 @@ View
 		?>
 	</div>
 </section>
+  
+<sectiom> 
 
+<?php
+
+
+
+  ?>  
+ 
+</sectiom>
 <?php
 	include_once 'footer.php';
 ?>

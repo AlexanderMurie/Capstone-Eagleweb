@@ -26,16 +26,16 @@ if (isset($_POST['submit'])) { /*check if submit button was clicked - stops bypa
 	//error handling 
 	//check for empty fields
 
-	if (empty($first) || empty($last) || empty($email) || empty($username) || empty($reasonforuse) || empty($pwd) || empty($pwd2)) { // add agreement empty() check 
+	if (empty($first) || empty($last) || empty($email) || empty($username) || empty($reasonforuse) || empty($pwd)) { // add agreement empty() check 
 
 		header("Location: ../signup.php?signup=empty"); 
 		exit();
 		//trigger error msg script here, outline empty boxes red
-	} elseif ($pwd != $pwd2) {
+	/*} elseif ($pwd != $pwd2) {
 		header("Location: ../signup.php?signup=passwordsDoNotMatch");
 		exit();
 		//trigger error msg script here
-	} else {
+	} */}else {
 
 		// makes sure input characters are valid
 		if (!preg_match("/^[a-zA-Z]*$/", $first) || !preg_match("/^[a-zA-Z]*$/", $last)) { 

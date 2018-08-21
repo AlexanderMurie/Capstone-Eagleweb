@@ -11,8 +11,8 @@
 .leaflet-image-layer,
 .leaflet-layer {
 	position: absolute;
-	bottom: 0;
-	right: 0;
+	top: 0;
+	left: 0;
 	
 	}
 .leaflet-container {
@@ -69,7 +69,7 @@
 	-webkit-tap-highlight-color: transparent;
 }
 .leaflet-container a {
-	-webkit-tap-highlight-color: rgba(51, 181, 229, 0.4);
+	-webkit-tap-highlight-color: rgba(51, 181, 229, 0.4); /*51, 181, 229, 0.4*/
 }
 .leaflet-tile {
 	filter: inherit;
@@ -79,8 +79,8 @@
 	visibility: inherit;
 	}
 .leaflet-zoom-box {
-	width: 0;
-	height: 0;
+	width: 16px;
+	height: 16px;
 	-moz-box-sizing: border-box;
 	     box-sizing: border-box;
 	z-index: 0;
@@ -90,7 +90,11 @@
 	-moz-user-select: none;
 	}
 
-.leaflet-pane         { z-index: 0; }
+.leaflet-pane         { 
+	z-index: 0; 
+	margin-left: 24%;
+
+}
 
 .leaflet-tile-pane    { z-index: 0; }
 .leaflet-overlay-pane { z-index: 0; }

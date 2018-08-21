@@ -24,6 +24,7 @@ Sign Up (View)
 			<input type="text" name="username" placeholder="Username";>
 			<input type="text" name="reasonforuse" placeholder="Why are you using Eagleweb?";>
 			<input type="password" name="pwd" placeholder="Password";>
+			<input type="password" name="pwd2" placeholder="Confirm password">
 			<button type="submit" name="submit">Sign up</button>
 
 			<!-- 

@@ -62,19 +62,29 @@ if (!isset($_SESSION['u_id'])){
 								<span class="closeButtonNest">&times;</span>
 								
 								<h1 align="center">SELECT YOUR NEST DATA</h1>
-                <button class="uploadButton">BROWSE</button>
-
+                  					<form action="uploadNest.php" method="POST" enctype="multipart/form-data"> 
+                    					<input type="file" name="nest-file">
+                    					<button type="submit" name="uploadNestButton">UPLOAD NEST DATA</button>
+                  					</form>
 							</div>
 						</div>
 						<script src="nestButtonModal.js"></script>
 					</body>
 
+
+
+
 					<body>
 						<div id="areaModal" class = "areaModal">
 							<div class="modal-content">
 								<span class="closeButtonArea">&times;</span>
+									
+									<h1 align="center">SELECT YOUR BOUNDARY AREA FILE</h1>
+                  					<form action="uploadArea.php" method="POST" enctype="multipart/form-data"> 
+                    					<input type="file" name="area-file">
+                    					<button type="submit" name="uploadAreaButton">UPLOAD BOUNDARY AREA</button>
+                  					</form>
 								
-								<p>area (modal)</p>
 
 							</div>
 						</div>

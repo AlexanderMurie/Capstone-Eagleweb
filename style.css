@@ -393,6 +393,10 @@ input, select {
     background-color: RoyalBlue;
 }
 
+h2 {
+    color: #ccc;
+}
+
 .buttonMegan {
     
     z-index:1;

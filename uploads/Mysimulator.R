@@ -7,6 +7,7 @@
 # The '<-' is the "assignment operator", giving something a name. '=' also works but is frowned upon.
 # to get help for a method type '?' before the function. I.e. '?hist'
 # Enter 'CRTL+SHIFT+C' to comment out sections of code.
+# https://www.tutorialspoint.com/r/r_json_files.htm
 
 #SET YOUR WORKING DIRECTORY
 #setwd("c:/Users/PFPUser/Desktop/CompSci")
@@ -39,6 +40,16 @@ installPacks <- function()
 #                           slope = terrain slop
 #                           slope_sd = the standard deviation of the slope in a grid around each GPS fix
 #                           alt = terrain altitude (elevation)
+
+#Read a Json file
+readJsonFile <- function()
+{
+  #library(rjson) #Doesnt work.
+  #try: https://stackoverflow.com/questions/2617600/importing-data-from-a-json-file-into-r
+  #library(RJSONIO)
+  #library(RCurl)
+  #jsonData <- fromJSON(file="filename.json")   #READ dat from a JSON file.
+}
 
 #The code block below requires the "effects" package.
 plotEffects <- function() 
@@ -269,7 +280,7 @@ main <- function()
   cat(shpFileLayerName, sep = "\n")   #TRACER
   
   #Begin the method train!
-  plotEffects()  #this method is causing kak.
+  #plotEffects()  #this method is causing kak.
   
   readGeoFiles()
   visualisePlots()

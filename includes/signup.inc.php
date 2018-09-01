@@ -60,8 +60,31 @@ if (isset($_POST['submit'])) { /*check if submit button was clicked - stops bypa
 
 					//insert user into db
 
-					$sql = "INSERT INTO users (user_first, user_last, user_email, user_username, user_password, user_reasonforuse) VALUES ('$first', '$last', '$email', '$username', '$hashedPwd', '$reasonforuse');";
+					$confirmCode = rand(); // add checks
+
+					$sql = "INSERT INTO users (user_first, user_last, user_email, user_username, user_password, user_reasonforuse, user_confirm_code) VALUES ('$first', '$last', '$email', '$username', '$hashedPwd', '$reasonforuse', '$confirmCode');";
 					mysqli_query($conn, $sql);
+
+					//send email
+					/*
+
+					// Mail can't be sent from a localhost; real server + domain name needed to implement this.
+
+					$message = 
+					"
+					Confirm your email
+
+					Click the link below to verify Eagleweb account:
+
+					http://www.eagleweb.co.za/login/Eagleweb/includes/confirm.inc.php?username=$username&&code=$confirmCode
+
+					"
+
+					mail($email, "Eagleweb Confirmation Email", $message, "From: DoNotReply@eagleweb.co.za");
+
+					*/
+
+
 					header("Location: ../signup.php?signup=success");
 					exit();
 
@@ -69,6 +92,14 @@ if (isset($_POST['submit'])) { /*check if submit button was clicked - stops bypa
 
 			}
 		}
+	
+
+	//make directory here
+	/*
+	if (mkdir("/uploads/users/" . $username . "/temp", 0777, true)){
+
+	}
+	*/
 	}
 
 } else {

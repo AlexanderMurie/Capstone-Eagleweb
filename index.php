@@ -142,70 +142,13 @@ if (!isset($_SESSION['u_id'])){
 
         
         if (isset($_SESSION['u_isMegan'])) { 
-            echo '<div class = "sidepanelLeft">
-            <ul>
-            <li><button id="buttonArea" class="buttonArea">AREA</button></li>
-            <li><button id="buttonNest" class="buttonNest">NESTS</button></li>
-            <li><button id="buttonClear" class="buttonClear">CLEAR</button></li>
-            <li><button id="buttonGenerate" class="buttonGenerate">GENERATE</button></li>
-            <li><button id="buttonMegan" class="buttonMegan">MEGAN</button></li>
-            </ul>
-            </div>
+           echo '
 
-          <body>
-            <div id="nestModal" class = "nestModal">
-              <div class="modal-content">
-                <span class="closeButtonNest">&times;</span>
-                
-                <h1 align="center">SELECT YOUR NEST DATA</h1>
-                <button class="uploadButton">BROWSE</button>
-
-              </div>
-            </div>
-            <script src="nestButtonModal.js"></script>
-          </body>
-
-          <body>
-            <div id="areaModal" class = "areaModal">
-              <div class="modal-content">
-                <span class="closeButtonArea">&times;</span>
-                
-                <p>area (modal)</p>
-
-              </div>
-            </div>
-            <script src="areaButtonModal.js"></script>
-          </body>
+           		
 
 
-          <body>
-            <div id="clearModal" class = "clearModal">
-              <div class="modal-content">
-                <span class="closeButtonClear">&times;</span>
-                
-                <button>clear</button>
 
-              </div>
-            </div>
-            <script src="clearButtonModal.js"></script>
-          </body>
-            
-          <body>
-            <div id="genModal" class = "genModal">
-              <div class="modal-content">
-                <span class="closeButtonGen">&times;</span>
-                
-                <button>generate</button>
-
-              </div>
-            </div>
-            <script src="generateButtonModal.js"></script>
-          </body>
-
-                
-          ';
-
-    
+           ';
         
         }
 

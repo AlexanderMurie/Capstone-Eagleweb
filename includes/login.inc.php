@@ -26,6 +26,9 @@ if (isset($_POST['submit'])) {
 		header("Location: ../index.php?login=empty");
 		exit();
 		} else {
+			
+
+			
 			$sql = "SELECT * FROM users WHERE user_username='$username' OR user_email='$username'";
 			$result = mysqli_query($conn, $sql);
 
@@ -43,9 +46,11 @@ if (isset($_POST['submit'])) {
 						header("Location: ../index.php?login=errorPassword");
 						exit();
 					} elseif ($hashedPwdCheck == true){
-						// log in user here
-
 						
+						
+
+						//check if confirmed here
+
 						$_SESSION['u_id'] = $row['user_id'];
 						$_SESSION['u_first'] = $row['user_first'];
 						$_SESSION['u_last'] = $row['user_email'];
@@ -58,6 +63,10 @@ if (isset($_POST['submit'])) {
 							}
 							
 						header("Location: ../index.php?login=success");
+
+						$currdir = getcwd();
+						mkdir($currdir . "/uploads/users/". $_SESSION['u_username'] . "/temp", 0777, true);
+
 						exit();
 						
 

@@ -21,9 +21,15 @@ if (isset($_POST['uploadAreaButton'])) {
 		if ($fileError === 0){
 			if ($fileSize < 500000){ //not sure if 10mb is appropriate
 				$fileNameNew = uniqid($user_in_session,true).".".$fileActualExt; //gives file a new id prefixed with u_username currently in session
-				$fileDestination = 'uploads/boundary_area_files/'.$fileNameNew;
+				$fileDestination = 'includes/uploads/users/'. $_SESSION['u_username']. '/temp/' . $fileNameNew;
 				move_uploaded_file($fileTmpName, $fileDestination);
-				echo 'Success!';
+				$_SESSION['areaFileName'] = $fileNameNew;
+				$_SESSION['areaFileDir'] = $fileDestination;
+				copy($fileDestination, 'includes/uploads/boundary_data_dump/' . $fileNameNew);
+
+
+
+
 				header("Location: index.php?uploadareasuccess"); //change if we need a loading screen or whatever; check in index.php if a file has been uploaded.
 
 

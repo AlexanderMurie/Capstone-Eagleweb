@@ -168,7 +168,7 @@ input, select {
 .nestModal {
     display:none;
     position: fixed;
-    z-index: 1;
+    z-index: 1000;
     top: 0;
     left: 0;
     width: 100%;
@@ -190,7 +190,7 @@ input, select {
     padding: 16px 16px; /* Some padding */
     font-size: 16px; /* Set a font size */
     cursor: pointer; /* Mouse pointer on hover */
-    z-index: 1;
+    z-index: 1000;
 }
 
 .uploadButton:hover {
@@ -200,7 +200,7 @@ input, select {
 .clearModal {
     display:none;
     position: fixed;
-    z-index: 1;
+    z-index: 1000;
     top: 0;
     left: 0;
     width: 100%;
@@ -398,14 +398,7 @@ h2 {
 }
 
 .buttonMegan {
-    
-    z-index:1;
-    position: absolute;
-    bottom: 0;
-    width: 60%;
-    margin-left: 20%;
-    margin-right: 20%;
-    margin-bottom: 15%;
+    z-index:1000;
     background-color: DodgerBlue; /* Blue background */
     border: none; /* Remove borders */
     color: white; /* White text */

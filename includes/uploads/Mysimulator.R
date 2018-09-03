@@ -13,11 +13,27 @@
 #setwd("c:/Users/PFPUser/Desktop/CompSci")
 
 #Global variables
-filenameCSV <- "CSV_nest_locations.csv"
-shpFileLayerName <- "penninsula"
+#Consider removing some global variables and replacing them with local variables.
+username <- "user"
+#nestLocationFile <- "nestLocation.csv"
+userDataFile <- "data.csv"
 dem <- "digitalElevationMap"
 dev <- "boundaryMap"
 riskmod <- "riskEx1"
+
+slope <- ""
+aspect <- ""
+slope_sd3 <- ""
+
+rar <- ""
+
+#file paths
+nestFilePath <- ""
+shapeFilePath <- ""
+#srtmFilePath <- ""
+
+srtmFileList <- ""
+#srtmFileCounter <- 0
 
 #packages you need to install to run (you only need to do this step the first time):
 installPacks <- function() 
@@ -28,12 +44,6 @@ installPacks <- function()
   install.packages("raster")
   install.packages("geosphere")
 }
-
-      # #This bit you don't need, it is for my own record of what I have given you (.
-        # require(lme4)
-        # scaled_data_risk2=scaled_data_risk[sample(nrow(scaled_data_risk), 5000),]
-        # all_mod = glmer(bin~nest_dist*slope+asp4+slope_sd3+alt+(1|name), data=scaled_data_risk2, family=binomial, na.action = "na.fail")
-        # saveRDS(all_mod, "riskmod.rds")
 
 #Load the above model and look at the effects:
 #variables in the model are: nest_dist = the distance from the nest
@@ -57,7 +67,7 @@ plotEffects <- function()
   print("ploting effects") #TRACER
   require(effects)
   riskmod <- readRDS("riskmod.rds")
-  #assign("riskmod", riskmod, envir = .GlobalEnv)
+  assign("riskmod", riskmod, envir = .GlobalEnv)
   
   #this allows you to see the effects of each variable, it's not important at the stage as this is not the final model 
   #but it does include all of the relevant variables that I expect will feature in the final model.
@@ -69,33 +79,44 @@ plotEffects <- function()
 ##### WEBSITE SIMULATION: CAPE POINT#####
 readGeoFiles <- function()
 {
+  #Require packages
   require(rgdal)
   print("rgdal loaded") #TRACER
-  require(raster)
-  print("raster loaded") #TRACER
+  # require(raster)
+  # print("raster loaded") #TRACER
     
   #Scenario: A developer is interested in putting a wind farm on the Cape Penninsula, there is one Verreaux's eagle nest on site:
   #This is the development area as a shapefile:
-   #NB: you should be able to enter any shapfile/coordinates here and that links to the next step to souce the DEMs, 
+  #NB: you should be able to enter any shapfile/coordinates here and that links to the next step to souce the DEMs, 
   # consider inventing a development in the Karoo... as I have invented this one.
   
   print("reading shape files ...") #TRACER
-  dev=readOGR(".", shpFileLayerName)  #e.g. dsn = ".", layer (name) = "penninsula")
+  
+  #join the home directory to the shape File Path variable.
+  fShapeFilePath = paste(".", shapeFilePath, sep = "")
+  dev = readOGR(fShapeFilePath)  #e.g. dsn = ".", layer (name) = "penninsula")
+  
   #dsn is the data source name, i,e, the folder directory. So "." represents the current folder directory.
+  
   assign("dev", dev, envir = .GlobalEnv)
-  #print("shape files read")                #TRACER
+  print("shape files read")                #TRACER
   
   #load 30m SRTM DEMS: 1 Arc-second (you will need to souces these online somehow for other developement areas)
-  srtm30a<-raster("s34_e018_1arc_v3.tif")
-  srtm30b<-raster("s35_e018_1arc_v3.tif")
+  #srtm30a<-raster("s34_e018_1arc_v3.tif")
+  #srtm30b<-raster("s35_e018_1arc_v3.tif")
   print("created srtm rasters")            #TRACER
-    
+  
   #merge the two together:
-  dem=merge(srtm30a, srtm30b) #Digital Elevation Map? stores the merged raster
+  print("begin srtm file merge")
+  dem = do.call(merge, srtmFileList)
+      #dem=merge(srtm30a, srtm30b) #Digital Elevation Map? stores the merged raster
   
   assign("dem", dem, envir = .GlobalEnv)
   print("srtm files merged.")               #TRACER
-  rm(srtm30a, srtm30b)  #remove the objects
+  
+  #Cleanup
+  #rm(srtm30a, srtm30b)  #remove the objects
+  #rm(srtmFileList)  #remove the list to clear up memory
 }
 
 visualisePlots <- function()
@@ -121,47 +142,69 @@ extractData <- function()
   aspect <-terrain(dem, opt=c('aspect'), unit='degrees')
   
   #****** LONG PROCESS INCOMING *******
-  slope_sd3=focal(slope, w=matrix(1,3,3), fun=sd) ##NB this layer take 5min+ to make. It is taking each grid cell and finding the standard deviation of the altitude of it and the cells around it on a 3x3 grid (i.e. SD of 9 cells)
+  slope_sd3 <-focal(slope, w=matrix(1,3,3), fun=sd) ##NB this layer take 5min+ to make. It is taking each grid cell and finding the standard deviation of the altitude of it and the cells around it on a 3x3 grid (i.e. SD of 9 cells)
   print("data extracted")   #TRACER
   
-  handleTerrainStack(slope, aspect, slope_sd3)
+  #make local variables global
+  print("assigning local variables...") #TRACER
+  assign("slope", slope, envir = .GlobalEnv)
+  assign("aspect", aspect, envir = .GlobalEnv)
+  assign("slope_sd3", aspect, envir = .GlobalEnv)
+  print("assignment complete.") #TRACER
+  
+  #handleTerrainStack(slope, aspect, slope_sd3)
 }
 
-handleTerrainStack <- function(slope, aspect, slope_sd3)
+handleTerrainStack <- function()
 {
   print("handling terrain stack...")   #TRACER
   #make a terrain.stack of these layers:
-  terrain.stack_pen<-stack(list(slope=slope,  aspect=aspect, slope_sd3=slope_sd3, alt=dem)) 
+  terrain.stack_pen <-stack(list(slope=slope,  aspect=aspect, slope_sd3=slope_sd3, alt=dem)) 
+  
+  print("print aspect...")
+  print(aspect)
+  print("print slode")
+  print(slope)
+  print("print slope_sd3")
+  print(slope_sd3)
   
   #Crop the terrain.stack by the development boundaries:
-  crs(dev)=crs(dem)
+  crs(dev) = crs(dem)
   dem_dev <- crop(terrain.stack_pen, extent(dev), snap='out')
   rar <- mask(dem_dev, dev)
   
+  print("printing rar...")
+  print(rar)
+  
+  assign("rar", rar, envir = .GlobalEnv)
+  
   print("terrain stack complete.")
-  convertToDataframe(rar)
+  #convertToDataframe(rar)
 }
 
 #convert the raster to points, and convert these points to a dataframe:
-convertToDataframe <- function(rar) 
+convertToDataframe <- function() 
 {
   print("converting raster to points, and the points to a dataframe...")                 #TRACER
   rarToP <- rasterToPoints(rar, byid=TRUE, id=rar$nests)
-  rm(rar)
+  rm(rar) #cleanup
+  
   dev.terrain <- as.data.frame(rarToP)
   
   #assign("dev.terrain", dev.terrain , envir = .GlobalEnv) #overwrite the global variable 
-  head(dev.terrain) #displays the first 6 rows of the dataframe as a default.
+  print(head(dev.terrain)) #displays the first 6 rows of the dataframe as a default.
   print("conversion complete.")                 #TRACER
+  
+  changeColNames(dev.terrain)   #TRACER
 }
 
-changeColNames <- function()
+changeColNames <- function(dev.terrain)
 {
   print("changing column names to longitude and latitude...")   #TRACER
   #change x y column names:
   names(dev.terrain)[names(dev.terrain) == "x"] <- "longitude"
   names(dev.terrain)[names(dev.terrain) == "y"] <- "latitude"
-  head(dev.terrain) #displays the first 6 rows of the dataframe as a default.
+  print(head(dev.terrain)) #displays the first 6 rows of the dataframe as a default.
   
   #make it output a table to a file to TEST.
   
@@ -176,11 +219,10 @@ handleNestCoordsCSV <- function()
 {
   print("Handling nest coordinatess from a CSV file...")   #TRACER
   #read CSV into R
-  nestCoords <- read.csv(
-  file=filenameCSV, 
-  header=TRUE, 
-  strip.white=TRUE,
-  sep=",")
+  
+  #join the home directory to the srtm File Path variable.
+  unestFilePath = paste(".", srtmFilePath, sep = "")
+  nestCoords <- read.csv(file = unestFilePath, header = TRUE, strip.white = TRUE, sep = ",")
 
   is.data.frame(nestCoords) #checks nestCoords is in a data frame format
   print(nestCoords$Latitudes) #TRACER
@@ -194,7 +236,8 @@ handleNestCoordsCSV <- function()
   #add nest lat & long coordinates from the given CSV file.
   dev.terrain$nest_lat <- nestCoords$Latitudes
   dev.terrain$nest_long <- nestCoords$Longitudes
-  head(dev.terrain)
+  print(head(dev.terrain)) #TRACER
+  
   print("nest coordinatess added to DB.")   #TRACER
 }
 
@@ -211,11 +254,11 @@ calcDist <- function()
   d=distGeo(df, df2) #distGeo is used to accurately estimate the shortest distance between two points on an ellipsoid.
                      #values for distGeo are "Vectors of distances in meters".
   d=as.data.frame(d) #stores distance data, in meters, as a data frame.
-  head(d)
+  print(head(d))
   
   #convert to km and add to dataframe:
   dev.terrain$nest_dist=d$d/1000 #adds a new coloumn to the dev.terrain dataset.
-  head(dev.terrain)
+  print(head(dev.terrain))
   
   print("nests stored.")   #TRACER
 }
@@ -266,35 +309,104 @@ plotRiskMap <- function(pred)
   writeRaster(risk_plot, "capepoint_risk", format = "GTiff")
 }
 
+readUserCSVFile <- function() #Read via CSV
+{
+  print("reading user CSV file ...") #TRACER
+  
+  # require(rgdal)
+  # print("rgdal loaded") #TRACER
+  require(raster)
+  print("raster loaded") #TRACER
+  
+  #store nestFileName
+  #get nest file path from the userInput.csv file.
+  userInput <- read.csv(file = userDataFile, header = TRUE, sep = ",") #The file has a name header and a path header.
+  
+  #find row length
+  rowLength <- length(userInput$Name)
+  #print(rowLength, sep="\n")   #TRACER
+  
+  #create a row counter to track the row items.
+  myRowCounter <- 0
+  
+  for (rowItem in userInput$Name) # iterate for each row item in the first column called "Name"
+  {
+    myRowCounter <- myRowCounter+1 #increment the row counter by 1 for each iteration of the for-loop.
+    
+    if (rowItem == "nest")
+    {
+      nestFilePath <- userInput$Path[myRowCounter] #row 1 will always store the nest tag
+      print(nestFilePath, max.levels = 0) #max.levels = 0  means it won't indicate how many levels should be printed for each factor.
+      #nestFilePath <- userInput[match(rowItem, userInput$Name),]$Path
+      #nestFilePath <- which(rowItem %in% userInput$Name)
+    }
+    else if (rowItem == "shape")
+    {
+      shapeFilePath <- userInput$Path[myRowCounter] #row 2 will always store the shape tag
+      print(shapeFilePath, max.levels = 0) #TRACER
+    }
+    else if (rowItem == "srtm")
+    {
+      srtmFilePath <- userInput$Path[myRowCounter] #rowLength - 2 will always store the srtm tags
+      print(srtmFilePath, max.levels = 0)  #TRACER
+      
+      #join the home directory to the srtm File Path variable.
+      nsrtmFilePath = paste(".", srtmFilePath, sep = "")
+      
+      #create a list of srtm variables to store each srtm file path
+      srtmFileList <- list()
+      for(i in 1:(rowLength-2)) #row length is subtracted by 2 to get the number of srtm tagged rows.
+      {
+        srtmFileList[[i]] <- raster(nsrtmFilePath)
+      }
+    }
+  }
+
+  #assign global variables (x), to equal the local variables value.
+  assign("nestFilePath", nestFilePath, envir = .GlobalEnv)
+  assign("shapeFilePath", shapeFilePath, envir = .GlobalEnv)
+  #assign("srtmFilePath", srtmFilePath, envir = .GlobalEnv)
+  assign("srtmFileList", srtmFileList, envir = .GlobalEnv)
+  
+  print("Finished reading user CSV file.") #TRACER
+}
+
 main <- function()
 {
   args <- commandArgs(trailingOnly = TRUE)
   
   if (!is.na(args[1]) && !is.na(args[2])) print("sufficient input")
   {
-    assign("filenameCSV", args[1], envir = .GlobalEnv) #set the filenameCSV variable to equal args[1].
-    assign("shpFileLayerName", args[2], envir = .GlobalEnv) #set the shpFileLayerName variable to equal args[2].
+    #Read via TERMINAL
+    #assign("filenameCSV", args[1], envir = .GlobalEnv) #set the filenameCSV variable to equal args[1].
+    #assign("shpFileLayerName", args[2], envir = .GlobalEnv) #set the shpFileLayerName variable to equal args[2].
+    
+    #Read via Naeem's Python program.
+    print("reading user input ...") #TRACER
+    assign("username", args[1], envir = .GlobalEnv)
+    assign("userDataFile", args[2], envir = .GlobalEnv)
   }
 
-  cat(filenameCSV, sep = "\n")   #TRACER
-  cat(shpFileLayerName, sep = "\n")   #TRACER
+  #Tracer statements
+  cat(username, sep = "\n")   #TRACER
+  cat(userDataFile, sep = "\n")   #TRACER
   
   #Begin the method train!
-  #plotEffects()  #this method is causing kak.
-  
+  plotEffects()  #this method is causing kak.
+  readUserCSVFile() #call method readUserCSVFile
   readGeoFiles()
   visualisePlots()
   
-  #extractData()   #LONG PROCESS!!! calls convertToDataframe()
+  extractData()   #LONG PROCESS!!!
+  handleTerrainStack()
+  convertToDataframe()
   #changeColNames()
-  # handleNestCoordsCSV()
-  # calcDist()
-  # addCat()
-  # runModel()
+  handleNestCoordsCSV()
+  calcDist()
+  addCat()
+  runModel()
   
-  print("FINISHED!")   #TRACER
-  
-
+  print("R program finished!")   #TRACER
 }
 
 main()

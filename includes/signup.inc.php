@@ -44,7 +44,7 @@ if (isset($_POST['submit'])) { /*check if submit button was clicked - stops bypa
 		} else {
 
 			if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
-				header("Location: ../signup.php?signup=email");
+				header("Location: ../signup.php?signup=email&first=$first&last=$last&username=$username&reasonforuse=$reasonforuse");
 				exit();
 			} else {
 

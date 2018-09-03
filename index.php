@@ -19,22 +19,53 @@ View
 
 <section class="main-container">
 <?php
-if (!isset($_SESSION['u_id'])){ 
+if (!isset($_SESSION['u_id'])){  //1154, 760
  echo ' <style>
 
-    .backgroundHome {
-      width: 1154px;
-      height: 760px;
-      position: relative;
-      background-image: url("images/background.jpg");
-    }
+    		.backgroundHome {
+    	
+      			width: 100%;
+      			height: 100%;
+      			position: relative;
+      			background-image: url("images/testbackground.jpeg");
+      			bottom: 0;
+      			right: 0;
+      			
+      			
+      			
+      			z-index: 0;
 
-  </style>';
+      		}
+
+  		</style>
+
+
+
+
+  '; 
+  // about section here
+
+
 }
 ?>
 	<div class="main-wrapper backgroundHome">
-		<h2></h2>
+		
 
+  		
+			<?php
+
+			if (!isset($_SESSION['u_id'])){
+  			echo '<div class="aboutBox">
+  				<p style="color:black; text-align:center; padding-top:10px; font-size:26px; font-weight:bold;">About Eagleweb</p>
+  			</div>
+
+  			<div class="contactBox">
+  				<p style="color:black; text-align:center; padding-top:10px; font-size:26px; font-weight:bold;">Links</p>
+  			</div>';	
+  			}
+  			?>
+
+  			
 
 
 
@@ -61,11 +92,16 @@ if (!isset($_SESSION['u_id'])){
 							<div class="modal-content">
 								<span class="closeButtonNest">&times;</span>
 								
-								<h1 align="center">SELECT YOUR NEST DATA</h1>
+								<p style="color:#D2691E; text-align: center; padding-top:20px; font-weight: bold">SELECT YOUR NEST DATA</p>
+								<p style="color:#D2691E; text-align: center; padding-left: 10px; padding-top:40px;">Please select your nest data</p>
+								<p style="color:#D2691E; text-align: center; padding-left: 10px; padding-top:10px; padding-bottom: 30px; font-style: italic;">(.csv files only)</p>
+								
                   					<form action="uploadNest.php" method="POST" enctype="multipart/form-data"> 
-                    					<input type="file" name="nest-file">
-                    					<button type="submit" name="uploadNestButton">UPLOAD NEST DATA</button>
-                  					</form>
+                  						<input type="file" name="nest-file">
+                    					<button style="float: bottom;" type="submit" name="uploadNestButton">UPLOAD NESTS</button>
+               						</form>
+
+               					<p style="color: red; text-align:center; padding-top: 30px; padding-bottom:60px">By uploading your data you consent to having it recorded and stored by Eagleweb. For any queries, please contact eagleweb@eagleweb.com.</p>
 							</div>
 						</div>
 						<script src="nestButtonModal.js"></script>
@@ -78,14 +114,16 @@ if (!isset($_SESSION['u_id'])){
 						<div id="areaModal" class = "areaModal">
 							<div class="modal-content">
 								<span class="closeButtonArea">&times;</span>
-									
-									<h1 align="center">SELECT YOUR BOUNDARY AREA FILE</h1>
-                  					<form action="uploadArea.php" method="POST" enctype="multipart/form-data"> 
-                    					<input type="file" name="area-file">
-                    					<button type="submit" name="uploadAreaButton">UPLOAD BOUNDARY AREA</button>
-                  					</form>
+								<p style="color:#D2691E; text-align: center; padding-top:20px; font-weight: bold">SELECT YOUR BOUNDARY AREA</p>
+								<p style="color:#D2691E; text-align: center; padding-left: 10px; padding-top:40px;">Please select your boundary area file.</p>
+								<p style="color:#D2691E; text-align: center; padding-left: 10px; padding-top:10px; padding-bottom: 30px; font-style: italic;">(.shp files only)</p>
 								
+                  					<form action="uploadArea.php" method="POST" enctype="multipart/form-data"> 
+                  						<input type="file" name="area-file">
+                    					<button style="float: bottom;" type="submit" name="uploadAreaButton">UPLOAD AREA</button>
+               						</form>
 
+               					<p style="color: red; text-align:center; padding-top: 30px; padding-bottom:60px">By uploading your data you consent to having it recorded and stored by Eagleweb. For any queries, please contact eagleweb@eagleweb.com.</p>
 							</div>
 						</div>
 						<script src="areaButtonModal.js"></script>
@@ -97,8 +135,14 @@ if (!isset($_SESSION['u_id'])){
 							<div class="modal-content">
 								<span class="closeButtonClear">&times;</span>
 								
-								<button>clear</button>
+								<p style="font-size: 20px; color:#D2691E; text-align: center; padding-top:20px;padding-bottom: 40px; font-weight: bold">Are you sure you want to clear?</p>
+								
+							
 
+							<form style="padding-left:30%; padding-right: 30%;"action="clearAll.php" method="POST">
+								<button style="float: bottom;" type="submit" name="clearButton">CLEAR DATA</button>
+							</form>
+								<p style="color: red; text-align:center; padding-top: 30px; padding-bottom:60px">Your data will still be stored on the Eagleweb system, even if cleared. For any queries, please contact eagleweb@eagleweb.com.</p>
 							</div>
 						</div>
 						<script src="clearButtonModal.js"></script>
@@ -154,6 +198,9 @@ if (!isset($_SESSION['u_id'])){
 
 
 
+
+
+
 			}
 		?>
 	</div>
@@ -162,8 +209,9 @@ if (!isset($_SESSION['u_id'])){
 <sectiom> 
 
 <?php
+	
 
-
+	
 
   ?>  
  

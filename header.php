@@ -23,17 +23,27 @@ Eagleweb
 	<nav>
 		<div class="main-wrapper">
 			
+
+
+
 			<div class = "nav-login">
 
 				<?php
+
+					
 
 					if (isset($_SESSION['u_id'])){
 
 							echo '	<form action="includes/logout.inc.php" method="POST">
 									<button type="submit" name="submit">Logout</button>
-									w</form>';
+									</form>';
 
 					} else {
+
+
+							
+
+
 
 							echo '<form action="includes/login.inc.php" method="POST">
 							<input type="text" name="username" placeholder="Username">
@@ -43,6 +53,11 @@ Eagleweb
 							<a href="signup.php">Sign up</a>';
 					
 					}
+
+
+
+
+
 				?>
 
 			</div>

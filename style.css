@@ -110,8 +110,28 @@ input, select {
 
 
 
+.aboutBox {
+    height: 80%;
+    width: 40%;
+    background-color: white;
+    z-index: 100;
+    top: 40px;
+    left: 200px;
+    border: 10px solid beige;
+    position: relative;
+}
 
-
+.contactBox {
+    height: 80%;
+    width: 20%;
+    background-color: white;
+    z-index: 100;
+    right: 40px;
+    top: 40px;
+    left: 1020px;
+    border: 10px solid beige;
+    position: absolute;
+}
 
 
 
@@ -139,7 +159,7 @@ input, select {
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
     left: 0;
-    background-color: #000000; /* grey */
+    background-color: #f5f5dc; /* grey */
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
 }
@@ -178,24 +198,57 @@ input, select {
     
 }
 
+.upload-button-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.upload-button-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
 .uploadButton {
 
+    border: 2px solid gray;
+    color: DodgerBlue;
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+
+    /*
     width: 40%;
     margin-left: 30%;
     margin-right: 30%;
     margin-bottom: 15%;
-    background-color: DodgerBlue; /* Blue background */
-    border: none; /* Remove borders */
-    color: white; /* White text */
-    padding: 16px 16px; /* Some padding */
-    font-size: 16px; /* Set a font size */
-    cursor: pointer; /* Mouse pointer on hover */
+    background-color: DodgerBlue;
+    border: none; 
+    color: white;
+    padding: 16px 16px; 
+    font-size: 16px;
+    cursor: pointer;
     z-index: 1000;
+    */
 }
 
 .uploadButton:hover {
     background-color: RoyalBlue;
 }
+
+
+.error {
+    color: #000;
+    z-index: 10000;
+
+
+}
+
 
 .clearModal {
     display:none;
@@ -243,6 +296,7 @@ input, select {
     height: 50%;
     padding: 20px;
     width: 30%;
+
     box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2), 0 7px 20px 0 rgba(0,0,0,0.17); 
     animation-name: modalopen;
     animation-duration: 1s;
@@ -465,10 +519,15 @@ h2 {
     overflow: none;
     margin: 0 auto;
     width: 1000px;
+    
+
+
 }
 
 a {
    text-decoration: none; 
+   z-index: 1;
+
 }
 
 body {
@@ -478,17 +537,20 @@ body {
 header nav {
     width: 100%;
     height: 60px;
-    background-color: #fff;
+    background-color: #f5f5dc;
+    z-index: 1;
 
 }
 
 header nav ul {
     float: left;
+    z-index: 1;
 }
 
 header nav ul li {
     float: left;
     list-style: none;
+    z-index: 1;
 }
 
 header nav ul li a {
@@ -496,23 +558,24 @@ header nav ul li a {
     font-size: 16px;
     color: #111;
     line-height: 63px;
+    z-index: 2;
 }
 
 header .nav-login {
-    z-index:1;
+    z-index:2;
 
     
     float: right;
 }
 
 header .nav-login form {
-    z-index:1;
+    z-index:2;
     float: left;
     padding-top: 15px;
 }
 
 header .nav-login form input {
-    z-index:1;
+    z-index:2;
     float: left;
     width: 140px;
     height: 30px;
@@ -555,7 +618,7 @@ header .nav-login a {
     height: 60px;
     border: none;
     float: left;
-    background-color: #fff;
+    background-color: #f5f5dc;
     font-family: arial;
     font-size: 16px;
     color: #111;
@@ -563,8 +626,10 @@ header .nav-login a {
     cursor: pointer;
 }
 
+
 .main-container {
     padding-top: 0px;
+    color: black;
 }
 
 .main-container h2 {
@@ -576,6 +641,9 @@ header .nav-login a {
 }
 
 /* signup.php stying */
+
+
+
 
 .signup-form {
     width: 400px;

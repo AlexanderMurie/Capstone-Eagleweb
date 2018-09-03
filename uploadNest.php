@@ -27,18 +27,32 @@ if (isset($_POST['uploadNestButton'])) {
 				$_SESSION['nestFileDir'] = $fileDestination;
 				copy($fileDestination, 'includes/uploads/nest_data_dump/' . $fileNameNew);
 				//echo 'Success!';
-				header("Location: index.php?uploadsuccess"); //change if we need a loading screen or whatever; check in index.php if a file has been uploaded.
+				header("Location: index.php?uploadsuccess");
 
 
 			} else {
-				echo 'Error: file is too big!';
+				$_SESSION['errorType'] = 'error_filesize';
+				header("Location: index.php?error=filesizeError");
+				
 			}
 		} else {
-			echo 'Error uploading nest file!';	
+			$_SESSION['errorType'] = 'error_upload';
+			header("Location: index.php?error=uploadError");
+			
 		}
 	} else {
-		echo 'Nest data must be a .csv file!';
+		$_SESSION['errorType'] = 'error_nestdata_not_csv';
+		header("Location: index.php?error=typeError");
+			
 	}
+
+
+
+
+
+
+
+
 
 
 }

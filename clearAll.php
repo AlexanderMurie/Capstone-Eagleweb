@@ -18,6 +18,9 @@ if (isset($_SESSION['areaFileDir'])){
 	$_SESSION['areaFileDir'] = null;
 }
 
+
 header("Location: index.php?dataCleared");
+
+
 
 ?>

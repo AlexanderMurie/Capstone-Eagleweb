@@ -136,17 +136,28 @@ input, select {
 
 
 
+.sidepanelRight {
 
-
-#mapid {
-  position: relative;
-  width: 100%;
-  height: 90%;
-  top: 0;
-  left: 24px;
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 200px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1000; /* Stay on top */
+    top: 0; /* Stay at the top */
+    right: 0;
+    background-color: #f5f5dc; /* grey */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
 }
 
 
+#mapid {
+  position: absolute;
+  width: 1500px;
+  height: 1500px;
+  top: 0;
+  
+  right:0;
+}
 
 
 
@@ -171,6 +182,18 @@ input, select {
     z-index: 1;
     bottom: 0;
     text-align: center;
+}
+
+.meganModal {
+    display:none;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.8);
 }
 .areaModal {
     display:none;
@@ -307,6 +330,11 @@ input, select {
     to{opacity: 1}
 }
 
+.closeButtonMegan {
+    color: #ccc;
+    float: right;
+    font-size: 30px;
+}
 .closeButtonNest {
     color: #ccc;
     float: right;
@@ -452,13 +480,19 @@ h2 {
 }
 
 .buttonMegan {
-    z-index:1000;
+    z-index:10000;
     background-color: DodgerBlue; /* Blue background */
     border: none; /* Remove borders */
     color: white; /* White text */
     padding: 16px 0px; /* Some padding */
     font-size: 16px; /* Set a font size */
     cursor: pointer; /* Mouse pointer on hover */
+    padding-left: 20%;
+    padding-right:20%;
+
+    bottom: 400px;
+
+
 }
 
 .buttonMegan:hover {
@@ -486,11 +520,14 @@ h2 {
     background-color: RoyalBlue;
 }
 
+
+
 .buttonExport {
     position: absolute;
     bottom: 0;
     right: 0;
     width: 100px;
+    
     background-color: DodgerBlue; /* Blue background */
     border: none; /* Remove borders */
     color: white; /* White text */
@@ -524,9 +561,14 @@ h2 {
 
 }
 
+.linkWrapper {
+    text-align: center;
+    padding-left: 10px;
+}
+
 a {
    text-decoration: none; 
-   z-index: 1;
+   
 
 }
 

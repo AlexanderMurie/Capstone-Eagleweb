@@ -10,6 +10,7 @@ View
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!--test this, w3school -->
 <link rel="stylesheet" type="text/css" href="mapstyle.css">
+<link rel="stylesheet" type="text/css" href="style.css">
 <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js" integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q==" crossorigin=""></script>
 
 
@@ -57,10 +58,52 @@ if (!isset($_SESSION['u_id'])){  //1154, 760
 			if (!isset($_SESSION['u_id'])){
   			echo '<div class="aboutBox">
   				<p style="color:black; text-align:center; padding-top:10px; font-size:26px; font-weight:bold;">About Eagleweb</p>
+  				<p style="font: georgia; color:black; text-align:left; padding-top:10px; font-size:20px; padding-left: 20px; padding-right:26px">
+
+  				Eagleweb, developed at UCT, is a free online tool for assessing the collision risk of black eagles around wind farms.
+  				Some shit about the Black Eagle Project and Megan Murgatroyd and our extension woes.  
+
+
+  				</p>
+
   			</div>
 
   			<div class="contactBox">
-  				<p style="color:black; text-align:center; padding-top:10px; font-size:26px; font-weight:bold;">Links</p>
+  				<p style="color:black; text-align:center; padding-top:10px; padding-bottom: 50px; font-size:26px; font-weight:bold;">Links</p
+  				
+  				<body>
+  				<div class="linkWrapper">
+  					<a href="http://www.blackeagles.co.za">The Black Eagle Project</a>
+  				</div>
+  				</body>
+
+
+
+  				<body>
+  				<div  style="padding-top: 40px" class="linkWrapper">
+  					<a href="http://www.uct.ac.za/">University of Cape Town</a>
+  				</div>
+  				</body>
+
+  				<body>
+  				<div  style="padding-top: 40px" class="linkWrapper">
+  					<a href="http://www.blackeagles.co.za/?page_id=110/">Donate to the Black Eagle Project</a>
+  				</div>
+  				</body>
+
+  				<body>
+  				<div  style="padding-top: 40px" class="linkWrapper">
+  					<a href="http://www.blackeagles.co.za/?page_id=14/">About Black Eagles</a>
+  				</div>
+  				</body>
+
+				<body>
+  				<div  style="padding-top: 40px" class="linkWrapper">
+  					<a href="http://www.blackeagles.co.za/?page_id=132">Contact the Black Eagle Project</a>
+  				</div>
+  				</body>  				
+
+
   			</div>';	
   			}
   			?>
@@ -71,21 +114,31 @@ if (!isset($_SESSION['u_id'])){  //1154, 760
 
 		<?php
 			if (isset($_SESSION['u_id'])) {
-				  echo '<div id="mapid"></div>
-          <script src="mapStuff.js"></script>
+				  
+					
+				  echo '
+				  <iframe src="WebMap.html" width=970px height="660px" align="right" >
+				  </iframe>
 
-          ';
+          			';
+			
 
 
-				echo '<div class = "sidepanelLeft">
+
+				echo '	
+					<div class = "sidepanelLeft">
 						<ul>
 						<li><button id="buttonArea" class="buttonArea">AREA</button></li>
 						<li><button id="buttonNest" class="buttonNest">NESTS</button></li>
 						<li><button id="buttonClear" class="buttonClear">CLEAR</button></li>
 						<li><button id="buttonGenerate" class="buttonGenerate">GENERATE</button></li>
+
+											
+
             
 						</ul>
 						</div>
+
 
 					<body>
 						<div id="nestModal" class = "nestModal">
@@ -105,12 +158,12 @@ if (!isset($_SESSION['u_id'])){  //1154, 760
 							</div>
 						</div>
 						<script src="nestButtonModal.js"></script>
-					</body>
+					
 
 
 
 
-					<body>
+					
 						<div id="areaModal" class = "areaModal">
 							<div class="modal-content">
 								<span class="closeButtonArea">&times;</span>
@@ -127,10 +180,7 @@ if (!isset($_SESSION['u_id'])){  //1154, 760
 							</div>
 						</div>
 						<script src="areaButtonModal.js"></script>
-					</body>
-
-
-					<body>
+					
 						<div id="clearModal" class = "clearModal">
 							<div class="modal-content">
 								<span class="closeButtonClear">&times;</span>
@@ -146,9 +196,7 @@ if (!isset($_SESSION['u_id'])){  //1154, 760
 							</div>
 						</div>
 						<script src="clearButtonModal.js"></script>
-					</body>
-						
-					<body>
+					
 						<div id="genModal" class = "genModal">
 							<div class="modal-content">
 								<span class="closeButtonGen">&times;</span>
@@ -158,11 +206,35 @@ if (!isset($_SESSION['u_id'])){  //1154, 760
 							</div>
 						</div>
 						<script src="generateButtonModal.js"></script>
+				
+
+					
+					
+
+						
+
+
+
+
+
+
 					</body>					
 					';
 
+				
+				}
 
-				echo '<div>
+			
+
+					
+
+
+
+
+        
+        if (isset($_SESSION['u_id'])){
+				echo 
+				'<div>
 						<ul>
 						<li><button id="buttonExport" class="buttonExport">EXPORT</button></li>
 						</ul>
@@ -181,27 +253,29 @@ if (!isset($_SESSION['u_id'])){  //1154, 760
 						</body>	
 
 						';
-
-
-
-        
-        if (isset($_SESSION['u_isMegan'])) { 
-           echo '
-
-           		
-
-
-
-           ';
-        
-        }
-
-
-
-
-
-
 			}
+
+
+		
+		if (isset($_SESSION['u_isMegan'])){
+			echo '
+				<button id="buttonMegan" class="buttonMegan">MEGAN</button>
+			';
+		}
+		
+			
+
+
+           
+        
+        
+
+
+
+
+
+
+			
 		?>
 	</div>
 </section>

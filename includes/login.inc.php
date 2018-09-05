@@ -1,11 +1,9 @@
 <!-- 
 
 Alexander Murie
-12/08/2018
-Eagleweb
-
-
-Controller
+Eagleweb, Aug 2018
+Purpose: Handles user authentication and log in. It also stores all user information to the session for use later (e.g. when changing the name of an 
+		 uploaded file.)
  -->
 
 <?php
@@ -19,8 +17,6 @@ if (isset($_POST['submit'])) {
 	$username = mysqli_real_escape_string($conn, $_POST['username']);
 	$pwd = mysqli_real_escape_string($conn, $_POST['pwd']);
 
-	// error handling
-	//check if empty
 
 	if (empty($username) || empty($pwd)) {
 		header("Location: ../index.php?login=empty");
@@ -34,23 +30,17 @@ if (isset($_POST['submit'])) {
 
 			$resultCheck = mysqli_num_rows($result);
 			if ($resultCheck < 1){
-				header("Location: ../index.php?login=errorUsername"); //remove these error specifications, debugging
+				header("Location: ../index.php?login=errorUsername"); 
 				exit();
 			} else {
 
 
 				if ($row = mysqli_fetch_assoc($result)) {
-					//de-hash pwd
 					$hashedPwdCheck = password_verify($pwd, $row['user_password']);	
 					if ($hashedPwdCheck == false) {
 						header("Location: ../index.php?login=errorPassword");
 						exit();
 					} elseif ($hashedPwdCheck == true){
-						
-						
-
-						//check if confirmed here
-
 						$_SESSION['u_id'] = $row['user_id'];
 						$_SESSION['u_first'] = $row['user_first'];
 						$_SESSION['u_last'] = $row['user_email'];

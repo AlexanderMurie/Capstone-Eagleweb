@@ -1,12 +1,9 @@
 <!-- 
 
 Alexander Murie
-12/08/2018
-Eagleweb
-
-
-Controller
- -->
+Eagleweb, Aug 2018.
+Purpose: Logs user out, ends their session, and redirects the user to the homepage. 
+-->
 
 <?php
 

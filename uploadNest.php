@@ -1,6 +1,14 @@
 <?php
+
+/*
+Alexander Murie
+Eagleweb, Aug 2018
+Purpose: uploadNest.php handles file upload for nest data files (.csv). It pushes uploaded files to the correct directory path (user's temp folder) as well
+		 as to a collective storage folder.
+*/
+
 session_start();
-// Nest upload handler
+
 if (isset($_POST['uploadNestButton'])) {
 
 	$user_in_session = $_SESSION['u_username']; 
@@ -11,16 +19,13 @@ if (isset($_POST['uploadNestButton'])) {
 	$fileSize = $_FILES['nest-file']['size'];
 	$fileError = $_FILES['nest-file']['error'];
 	$fileType = $_FILES['nest-file']['type'];
-
 	$fileExt = explode('.', $fileName);
 	$fileActualExt = strtolower(end($fileExt)); 
-
-	$allowed = array('csv', 'txt'); //remove txt allowed; is for testing
-
+	$allowed = array('csv', 'txt'); 
 	if (in_array($fileActualExt, $allowed)) {
 		if ($fileError === 0){
-			if ($fileSize < 100000){ //not sure if 10mb is appropriate
-				$fileNameNew = uniqid($user_in_session,true).".".$fileActualExt; //gives file a new id prefixed with u_username currently in session
+			if ($fileSize < 100000){ 
+				$fileNameNew = uniqid($user_in_session,true).".".$fileActualExt; 
 				$fileDestination = 'includes/uploads/users/'. $_SESSION['u_username']. '/temp/' . $fileNameNew;
 				move_uploaded_file($fileTmpName, $fileDestination);
 				$_SESSION['nestFileName'] = $fileNameNew;

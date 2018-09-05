@@ -11,8 +11,8 @@
 .leaflet-image-layer,
 .leaflet-layer {
 	position: absolute;
-	top: 0;
 	left: 0;
+	top: 0;
 	}
 .leaflet-container {
 	overflow: hidden;
@@ -31,8 +31,8 @@
 	}
 /* hack that prevents hw layers "stretching" when loading new tiles */
 .leaflet-safari .leaflet-tile-container {
-	width: 1000px;
-	height: 1000px;
+	width: 1600px;
+	height: 1600px;
 	-webkit-transform-origin: 0 0;
 	}
 .leaflet-marker-icon,
@@ -68,7 +68,7 @@
 	-webkit-tap-highlight-color: transparent;
 }
 .leaflet-container a {
-	-webkit-tap-highlight-color: rgba(51, 181, 229, 0.4); /*51, 181, 229, 0.4*/
+	-webkit-tap-highlight-color: rgba(51, 181, 229, 0.4);
 }
 .leaflet-tile {
 	filter: inherit;
@@ -78,32 +78,28 @@
 	visibility: inherit;
 	}
 .leaflet-zoom-box {
-	width: 16px;
-	height: 16px;
+	width: 0;
+	height: 0;
 	-moz-box-sizing: border-box;
 	     box-sizing: border-box;
-	z-index: 0;
+	z-index: 800;
 	}
 /* workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=888319 */
 .leaflet-overlay-pane svg {
 	-moz-user-select: none;
 	}
 
-.leaflet-pane         { 
-	z-index: 0; 
-	margin-left: 24%;
+.leaflet-pane         { z-index: 400; }
 
-}
+.leaflet-tile-pane    { z-index: 200; }
+.leaflet-overlay-pane { z-index: 400; }
+.leaflet-shadow-pane  { z-index: 500; }
+.leaflet-marker-pane  { z-index: 600; }
+.leaflet-tooltip-pane   { z-index: 650; }
+.leaflet-popup-pane   { z-index: 700; }
 
-.leaflet-tile-pane    { z-index: 0; }
-.leaflet-overlay-pane { z-index: 0; }
-.leaflet-shadow-pane  { z-index: 0; }
-.leaflet-marker-pane  { z-index: 0; }
-.leaflet-tooltip-pane   { z-index: 0; }
-.leaflet-popup-pane   { z-index: 0; }
-
-.leaflet-map-pane canvas { z-index: 0; }
-.leaflet-map-pane svg    { z-index: 0; }
+.leaflet-map-pane canvas { z-index: 100; }
+.leaflet-map-pane svg    { z-index: 200; }
 
 .leaflet-vml-shape {
 	width: 1px;
@@ -120,14 +116,14 @@
 
 .leaflet-control {
 	position: relative;
-	z-index: 0;
+	z-index: 800;
 	pointer-events: visiblePainted; /* IE 9-10 doesn't have auto */
 	pointer-events: auto;
 	}
 .leaflet-top,
 .leaflet-bottom {
 	position: absolute;
-	z-index: 0;
+	z-index: 1000;
 	pointer-events: none;
 	}
 .leaflet-top {
@@ -150,16 +146,16 @@
 	float: right;
 	}
 .leaflet-top .leaflet-control {
-	margin-top: 0px;
+	margin-top: 10px;
 	}
 .leaflet-bottom .leaflet-control {
-	margin-bottom: 0px;
+	margin-bottom: 10px;
 	}
 .leaflet-left .leaflet-control {
-	margin-left: 0px;
+	margin-left: 10px;
 	}
 .leaflet-right .leaflet-control {
-	margin-right: 0px;
+	margin-right: 10px;
 	}
 
 

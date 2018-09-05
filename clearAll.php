@@ -1,5 +1,12 @@
 <?php
 
+/*
+Alexander Murie.
+Eagleweb, Aug 2018.
+Purpose: clearAll.php represents the functionality of the Clear button. The current files, names and paths, being used (i.e. those stored in session) are 
+		 reset to null.
+
+*/
 session_start();
 
 if (isset($_SESSION['nestFileName'])){

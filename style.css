@@ -1,11 +1,17 @@
+/*
+Alexander Murie
+Eagleweb, Aug 2018
+Purpose: style.css contains the website styling for all the buttons, wrappers, menus, etc.
+*/
+
+
+
 /* 
 html5doctor.com Reset Stylesheet
 v1.6.1
 Last Updated: 2010-09-17
 Author: Richard Clark - http://richclarkdesign.com 
-Twitter: @rich_clark
-
-(Used by Alexander Murie, 2018-08-12)
+(Used by Alexander Murie, 2018-08-12, Eagleweb)
 */
 
 html, body, div, span, object, iframe,
@@ -102,13 +108,10 @@ hr {
 input, select {
     vertical-align:middle;
 }
+
 /*End of cited code*/
-/* Alexander Murie, Eagleweb */
 
-
-
-
-
+/*Homepage content styles*/
 
 .aboutBox {
     height: 80%;
@@ -134,21 +137,13 @@ input, select {
 }
 
 
-
-
-.sidepanelRight {
-
-    height: 100%; /* Full-height: remove this if you want "auto" height */
-    width: 200px; /* Set the width of the sidebar */
-    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-    z-index: 1000; /* Stay on top */
-    top: 0; /* Stay at the top */
-    right: 0;
-    background-color: #f5f5dc; /* grey */
-    overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 20px;
+.linkWrapper {
+    text-align: center;
+    padding-left: 10px;
 }
 
+
+/*Map style*/
 
 #mapid {
   position: absolute;
@@ -161,17 +156,33 @@ input, select {
 
 
 
+/*Panel styles (right, left, bottom)*/
+
+.sidepanelRight {
+
+    height: 100%; 
+    width: 200px; 
+    position: fixed; 
+    z-index: 1000; 
+    top: 0; 
+    right: 0;
+    background-color: #f5f5dc; 
+    overflow-x: hidden; 
+    padding-top: 20px;
+}
+
+
 
 .sidepanelLeft {
 
-    height: 100%; /* Full-height: remove this if you want "auto" height */
-    width: 200px; /* Set the width of the sidebar */
-    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-    z-index: 1; /* Stay on top */
-    top: 0; /* Stay at the top */
+    height: 100%; 
+    width: 200px; 
+    position: fixed; 
+    z-index: 1; 
+    top: 0; 
     left: 0;
-    background-color: #f5f5dc; /* grey */
-    overflow-x: hidden; /* Disable horizontal scroll */
+    background-color: #f5f5dc; 
+    overflow-x: hidden; 
     padding-top: 20px;
 }
 
@@ -183,6 +194,8 @@ input, select {
     bottom: 0;
     text-align: center;
 }
+
+/* Modal styles */
 
 .meganModal {
     display:none;
@@ -219,57 +232,6 @@ input, select {
     overflow: auto;
     background-color: rgba(0,0,0,0.8);
     
-}
-
-.upload-button-wrapper {
-    position: relative;
-    overflow: hidden;
-    display: inline-block;
-}
-
-.upload-button-wrapper input[type=file] {
-  font-size: 100px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-}
-
-.uploadButton {
-
-    border: 2px solid gray;
-    color: DodgerBlue;
-    background-color: white;
-    padding: 8px 20px;
-    border-radius: 8px;
-    font-size: 20px;
-    font-weight: bold;
-
-    /*
-    width: 40%;
-    margin-left: 30%;
-    margin-right: 30%;
-    margin-bottom: 15%;
-    background-color: DodgerBlue;
-    border: none; 
-    color: white;
-    padding: 16px 16px; 
-    font-size: 16px;
-    cursor: pointer;
-    z-index: 1000;
-    */
-}
-
-.uploadButton:hover {
-    background-color: RoyalBlue;
-}
-
-
-.error {
-    color: #000;
-    z-index: 10000;
-
-
 }
 
 
@@ -329,6 +291,52 @@ input, select {
     from{opacity: 0}
     to{opacity: 1}
 }
+
+
+
+/* Upload button styles */
+.upload-button-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.upload-button-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+.uploadButton {
+
+    border: 2px solid gray;
+    color: DodgerBlue;
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+
+    
+}
+
+.uploadButton:hover {
+    background-color: RoyalBlue;
+}
+
+
+.error {
+    color: #000;
+    z-index: 10000;
+
+
+}
+
+
+
+/* Close button styles */
 
 .closeButtonMegan {
     color: #ccc;
@@ -396,6 +404,8 @@ input, select {
 }
 
 
+
+/* Button styles */
 
 .buttonArea {
 
@@ -475,9 +485,6 @@ input, select {
     background-color: RoyalBlue;
 }
 
-h2 {
-    color: #ccc;
-}
 
 .buttonMegan {
     z-index:10000;
@@ -542,7 +549,10 @@ h2 {
 }
 
 
+
 /* The navigation menu links */
+
+
 .sidenav a {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
@@ -556,15 +566,10 @@ h2 {
     overflow: none;
     margin: 0 auto;
     width: 1000px;
-    
 
 
 }
 
-.linkWrapper {
-    text-align: center;
-    padding-left: 10px;
-}
 
 a {
    text-decoration: none; 
@@ -635,11 +640,6 @@ header .nav-login form button {
     z-index:1;
     float: left;
     width: 60px;
-
-
-
-
-
     height: 30px; 
     margin-right: 10px;
     border: none;
@@ -682,9 +682,9 @@ header .nav-login a {
     text-align: center;
 }
 
-/* signup.php stying */
 
 
+/* Sign up styling */
 
 
 .signup-form {

@@ -1,8 +1,8 @@
 <!-- 
 
 Alexander Murie
-12/08/2018
-Eagleweb
+Eagleweb, Aug 2018
+Purpose: Handles the footer, which contains the Export button.
 
  -->
 <?php

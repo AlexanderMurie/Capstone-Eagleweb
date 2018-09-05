@@ -1,3 +1,9 @@
+<!--
+Alexander Murie
+Eagleweb, Aug 2018
+Purpose: Checks if all necessary files are uploaded. If they are, stores their names and paths in the session for later use.
+-->
+
 <?php
 session_start();
 
@@ -16,5 +22,5 @@ if (isset($_SESSION['u_id']){
 		$currentAreaFileDir = $_SESSION['areaFileDir'];
 	
 
-		//push to backend
+		
 	}	

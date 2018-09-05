@@ -1,8 +1,7 @@
 <!-- 
 
 Alexander Murie
-12/08/2018
-Eagleweb
+Eagleweb, Aug 2018
 
  -->
 
@@ -22,44 +21,32 @@ Eagleweb
 <header>
 	<nav>
 		<div class="main-wrapper">
-			
-
-
-
-			<div class = "nav-login">
+			<div class = "nav-login"> <!-- This div controls whether the header displays a login form or just a logout button 
+										   depending on whether the user is logged in. -->
 
 				<?php
-
-					
-
 					if (isset($_SESSION['u_id'])){
 
-							echo '	<form action="includes/logout.inc.php" method="POST">
+							echo 	'	
+									<form action="includes/logout.inc.php" method="POST">
 									<button type="submit" name="submit">Logout</button>
-									</form>';
+									</form>
+								 	';
 
-					} else {
+					} 
+					else {
 
-
-							
-
-
-
-							echo '<form action="includes/login.inc.php" method="POST">
-							<input type="text" name="username" placeholder="Username">
-							<input type="password" name="pwd" placeholder="Password">
-							<button type="submit" name="submit">Login</button> 
-							</form>
-							<a href="signup.php">Sign up</a>';
+							echo 	'
+									<form action="includes/login.inc.php" method="POST">
+									<input type="text" name="username" placeholder="Username">
+									<input type="password" name="pwd" placeholder="Password">
+									<button type="submit" name="submit">Login</button> 
+									</form>
+									<a href="signup.php">Sign up</a>
+									';
 					
-					}
-
-
-
-
-
+							}
 				?>
-
 			</div>
 		</div>
 	</nav>

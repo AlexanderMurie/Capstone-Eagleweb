@@ -1,16 +1,15 @@
 <!-- 
 
 Alexander Murie
-12/08/2018
-Eagleweb
-
+Eagleweb, Aug 2018
+Purpose: Sets the server and database name, and connects to the SQL database.
  -->
 
 
 <?php 
 
 
-$dbServername = "localhost"; /* Get UCT servername*/ 
+$dbServername = "localhost"; 
 $dbUsername = "root";
 $dbPassword = "";
 $dbName = "Eagleweblogin";

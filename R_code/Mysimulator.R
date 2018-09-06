@@ -193,7 +193,7 @@ handleNestCoordsCSV <- function()
   nestCoords <- read.csv(file = nestFilePathFull, header = TRUE, strip.white = TRUE, sep = ",")
 
   is.data.frame(nestCoords) #checks nestCoords is in a data frame format
-  print(nestCoords$Latitudes) #TRACER
+  #print(nestCoords$Latitudes) #TRACER
   
       #read.csv reads the specified file into a data frame that creates a variable called 'myData.nestLocations'.
       #header=TRUE specifies that this data includes a header row and sep=”,” specifies that the data is separated by commas 
@@ -202,10 +202,31 @@ handleNestCoordsCSV <- function()
       #'strip.white' removes spaces that were inserted before the data values in the CSV file.
   
   #add nest lat & long coordinates from the given CSV file.
-  dev.terrain$nest_lat <- nestCoords$Latitudes
-  dev.terrain$nest_long <- nestCoords$Longitudes
-  print(head(dev.terrain)) #TRACER
+  nestCounter <- 1
+  # nest_lat <- ""
+  # nest_long <- ""
   
+  for (nest in nestCoords$Latitudes)
+  {
+    print("prining nest in nestCoords")
+    print(nest) #note this prints in columns.
+    
+    print("printing nestCoords$Latitudes[i]")
+    print(nestCoords$Latitudes[nestCounter])
+    
+    print("printing nestCoords$Longitudes[i]")
+    print(nestCoords$Longitudes[nestCounter])
+    # join the nest_lat or nest_long heading with the nest number.
+    # new_nest_lat <- paste0(nestCounter, nest_lat) #nest
+    # new_nest_long <- paste0(nestCounter, nest_lat)
+    
+    dev.terrain$nest_lat <- nestCoords$Latitudes[nestCounter]
+    dev.terrain$nest_long <- nestCoords$Longitudes[nestCounter]
+    
+    nestCounter <- nestCounter +1
+    
+    print(head(dev.terrain)) #TRACER
+  }
   assign("dev.terrain", dev.terrain, envir = .GlobalEnv) #UPDATE global var 'dev.terrain'
   print("nest coordinatess added to DB.")   #TRACER
 }
@@ -223,7 +244,7 @@ calcDist <- function()
   d=distGeo(df, df2) #distGeo is used to accurately estimate the shortest distance between two points on an ellipsoid.
                      #values for distGeo are "Vectors of distances in meters".
   d=as.data.frame(d) #stores distance data, in meters, as a data frame.
-  print(head(d))
+  #print(head(d))
   
   #convert to km and add to dataframe:
   dev.terrain$nest_dist=d$d/1000 #adds a new coloumn to the dev.terrain dataset.
@@ -278,7 +299,7 @@ plotRiskMap <- function(pred)
   plot(dev, add=T)
   
   print("risk map plotted")   #TRACER
-  writeRaster(risk_plot, "capepoint_risk", format = "GTiff") #Print out a Gtiff of the risk-map.
+  writeRaster(risk_plot, "capepoint_risk", format = "GTiff", overwrite = TRUE) #Print out a Gtiff of the risk-map.
 }
 
 readUserCSVFile <- function() #Read via CSV
@@ -356,17 +377,17 @@ readUserCSVFile <- function() #Read via CSV
     }
   }
 
-  print("Printing srtm file list")
-  for (i in srtmFileList)
-  {
-    print(i)
-  }
-  
-  print("Printing focal file list")
-  for (i in focalFileList)
-  {
-    print(i)
-  }
+  # print("Printing srtm file list")
+  # for (i in srtmFileList)
+  # {
+  #   print(i)
+  # }
+  # 
+  # print("Printing focal file list")
+  # for (i in focalFileList)
+  # {
+  #   print(i)
+  # }
   
   #assign global variables (x), to equal the local variables value.
   assign("nestFilePath", nestFilePath, envir = .GlobalEnv)

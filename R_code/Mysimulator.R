@@ -192,66 +192,69 @@ handleNestCoordsCSV <- function()
   nestFilePathFull = paste(".", nestFilePath, sep = "")
   nestCoords <- read.csv(file = nestFilePathFull, header = TRUE, strip.white = TRUE, sep = ",")
 
-  is.data.frame(nestCoords) #checks nestCoords is in a data frame format
-  #print(nestCoords$Latitudes) #TRACER
-  
-      #read.csv reads the specified file into a data frame that creates a variable called 'myData.nestLocations'.
-      #header=TRUE specifies that this data includes a header row and sep=”,” specifies that the data is separated by commas 
-      #(though read.csv implies the same I think it’s safer to be explicit).
-      #Source: http://rprogramming.net/read-csv-in-r/
-      #'strip.white' removes spaces that were inserted before the data values in the CSV file.
+  print("Calculating and storing the distance between nests...")   #TRACER
+  require(geosphere)
+  # splitting the dev boundary and nest locations based on their 'long' and 'lats' into dataframes.
+  df = data.frame(long=dev.terrain$longitude, lat=dev.terrain$latitude)   #df for dev boundary.
   
   #add nest lat & long coordinates from the given CSV file.
   nestCounter <- 1
-  # nest_lat <- ""
-  # nest_long <- ""
+  df_n <- ""
+  dist_n <- ""
   
   for (nest in nestCoords$Latitudes)
   {
-    print("prining nest in nestCoords")
-    print(nest) #note this prints in columns.
-    
-    print("printing nestCoords$Latitudes[i]")
-    print(nestCoords$Latitudes[nestCounter])
-    
-    print("printing nestCoords$Longitudes[i]")
-    print(nestCoords$Longitudes[nestCounter])
     # join the nest_lat or nest_long heading with the nest number.
-    # new_nest_lat <- paste0(nestCounter, nest_lat) #nest
-    # new_nest_long <- paste0(nestCounter, nest_lat)
+    nest_lat <- paste0("nest_lat", nestCounter)
+    nest_long <- paste0("nest_long", nestCounter)
     
+    # CREATING COLUMN NAMES AND POPULATING THEIR COLUMNS WITH NEST LATS & LONGS.
     dev.terrain$nest_lat <- nestCoords$Latitudes[nestCounter]
     dev.terrain$nest_long <- nestCoords$Longitudes[nestCounter]
     
-    nestCounter <- nestCounter +1
+    # create distance dataframes(dfs) for each nest coordinate.
+    df_n <- paste0("df", nestCounter)
+    df_n = data.frame(long = dev.terrain$nest_long, lat = dev.terrain$nest_lat)
+    # print("printing df_n")
+    # print(head(df_n))  #TRACER
+  
+    # COMPARE DF BOUNDARY DISTANCE with NEST DISTANCE
+    dist_n <- paste0("dist_n", nestCounter)
+    dist_n <- distGeo(df, df_n) # distGeo is used to accurately estimate the shortest distance between two points on an ellipsoid.
+                                # values for distGeo are "Vectors of distances in meters".
+    dist_n = as.data.frame(dist_n) #stores the distances in distance data, in meters, as a data frame.
     
-    print(head(dev.terrain)) #TRACER
+    # print("printing dist_n")
+    # print(head(dist_n))  #TRACER
+    
+    # print("changing column names for nest long & lat...")   #TRACER
+    # change x y column names:
+    names(dev.terrain)[names(dev.terrain) == "nest_lat"] <- nest_lat
+    names(dev.terrain)[names(dev.terrain) == "nest_long"] <- nest_long
+    # print("column names for nest long & lat changed.")                 #TRACER
+    
+    # CREATING NEW COLUMN NAMED 'nest_dist_temp'
+    dev.terrain$nest_dist_new = dist_n$dist_n/1000  #convert to km and add to dataframe:
+    
+    # COMPARE NEST DISTANCE VALUES
+    # compare the old nest val with the new nest val &
+    # store the min nest distance in a new column named 'nest_dist'. 
+    if (nestCounter > 1)  #there is an old nest dist value so...
+    {
+      dev.terrain$nest_dist = with (dev.terrain, pmin(nest_dist_old, nest_dist_new))
+    }
+    
+    # print("Printing dev.terrain before nest_dist_old is updated")
+    # print(head(dev.terrain)) #TRACER
+    dev.terrain$nest_dist_old <- dev.terrain$nest_dist_new # set the new nest distance to become the old nest distance.
+    
+    # print("Printing dev.terrain at end of for-loop") #TRACER
+    # print(head(dev.terrain)) #TRACER
+    nestCounter <- nestCounter + 1
   }
+
   assign("dev.terrain", dev.terrain, envir = .GlobalEnv) #UPDATE global var 'dev.terrain'
   print("nest coordinatess added to DB.")   #TRACER
-}
-
-#calculate the distance between the nest and each grid cell (now each row in the dataframe):
-calcDist <- function()
-{
-  print("Calculating and storing the distance between nests...")   #TRACER
-  require(geosphere)
-  
-  #splitting the dev boundary and nest locations based on their 'long' and 'lats' into dataframes.
-  df=data.frame(long=dev.terrain$longitude, lat=dev.terrain$latitude)   #df for dev boundary.
-  df2=data.frame(long=dev.terrain$nest_long, lat=dev.terrain$nest_lat)  #df for nest coords.
-  
-  d=distGeo(df, df2) #distGeo is used to accurately estimate the shortest distance between two points on an ellipsoid.
-                     #values for distGeo are "Vectors of distances in meters".
-  d=as.data.frame(d) #stores distance data, in meters, as a data frame.
-  #print(head(d))
-  
-  #convert to km and add to dataframe:
-  dev.terrain$nest_dist=d$d/1000 #adds a new coloumn to the dev.terrain dataset.
-  print(head(dev.terrain))
-  
-  assign("dev.terrain", dev.terrain, envir = .GlobalEnv) #UPDATE global var 'dev.terrain'
-  print("nests stored.")   #TRACER
 }
 
 #add categorical aspect to dataframe:
@@ -434,7 +437,6 @@ main <- function()
 
   changeColNames()
   handleNestCoordsCSV()
-  calcDist()
   addCat()
   runModel()
   

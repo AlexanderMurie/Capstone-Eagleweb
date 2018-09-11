@@ -12,6 +12,9 @@
   <!--Leaflet js-->
   <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js" integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q==" crossorigin=""></script>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
+
   <!--<script type="text/javascript" src="seismic.js"></script>-->
 
 
@@ -76,7 +79,8 @@ mymap.addLayer(Stamen_Terrain);
 //Simple Scale Bar, must have on map following basic cartographic principles.
 L.control.scale().addTo(mymap);
 
-
+var countriesLayer = new L.GeoJSON.AJAX("risk.geojson"); 
+countriesLayer.addTo(mymap);
 
 </script>
 </body>

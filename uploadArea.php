@@ -14,31 +14,57 @@ session_start();
 
 if (isset($_POST['uploadAreaButton'])) {
 
+
+
+
+
+
 	$user_in_session = $_SESSION['u_username']; 
 
-	$file = $_FILES['area-file'];
-	$fileName = $_FILES['area-file']['name'];
-	$fileTmpName = $_FILES['area-file']['tmp_name'];
-	$fileSize = $_FILES['area-file']['size'];
-	$fileError = $_FILES['area-file']['error'];
-	$fileType = $_FILES['area-file']['type'];
+	// dbf
+	// prj
+	// qpj
+	// shx
+	// shp
 
-	$fileExt = explode('.', $fileName);
+	$fileDbf = $_FILES['dbf-file'];
+	$fileNameDbf = $_FILES['dbf-file']['name'];
+	$fileTmpNameDbf = $_FILES['dbf-file']['tmp_name'];
+	$fileSizeDbf = $_FILES['dbf-file']['size'];
+	$fileErrorDbf = $_FILES['dbf-file']['error'];
+	$fileTypeDbf = $_FILES['dbf-file']['type'];
+
+
+	$filePrj = $_FILES['dbf-file'];
+	$fileNameDbf = $_FILES['dbf-file']['name'];
+	$fileTmpNameDbf = $_FILES['dbf-file']['tmp_name'];
+	$fileSizeDbf = $_FILES['dbf-file']['size'];
+	$fileErrorDbf = $_FILES['dbf-file']['error'];
+	$fileTypeDbf = $_FILES['dbf-file']['type'];
+
+
+
+
+
+	$fileExt = explode('.', $fileNameDbf);
 	$fileActualExt = strtolower(end($fileExt)); 
-
-	$allowed = array('shp', 'txt'); 
+	$allowed = array('dbf', 'prj', 'qpj', 'shx' ,'shp', 'txt'); 
 
 	if (in_array($fileActualExt, $allowed)) {
-		if ($fileError === 0){
-			if ($fileSize < 500000){ 
+		if ($fileErrorDbf === 0){
+			if ($fileSizeDbf < 500000){ 
 				$fileNameNew = uniqid($user_in_session,true).".".$fileActualExt; 
-				$fileDestination = 'includes/uploads/users/'. $_SESSION['u_username']. '/temp/' . $fileNameNew;
-				move_uploaded_file($fileTmpName, $fileDestination);
-				$_SESSION['areaFileName'] = $fileNameNew;
-				$_SESSION['areaFileDir'] = $fileDestination;
+				$fileDestination = 'User/'. $_SESSION['u_username']. '/temp/' . $fileNameNew;
+				move_uploaded_file($fileTmpNameDbf, $fileDestination);
+				$_SESSION['dbfFileName'] = $fileNameNew;
+				$_SESSION['dbfFileDir'] = $fileDestination;
 				copy($fileDestination, 'includes/uploads/boundary_data_dump/' . $fileNameNew);
 
 				header("Location: index.php?uploadareasuccess"); 
+
+
+
+
 
 
 			} else {

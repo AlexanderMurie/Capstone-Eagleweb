@@ -1,7 +1,7 @@
-var generateButton = document.getElementById('generateMap');
+var generateButton = document.getElementById('generate');
 
-generateMap.addEventListener('click', runBackend);
+generate.addEventListener('click', runBackend);
 
 function runBackend(){
-	//start stuff
+	
 }

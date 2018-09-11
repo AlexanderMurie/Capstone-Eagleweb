@@ -11,6 +11,9 @@ session_start();
 
 if (isset($_POST['uploadNestButton'])) {
 
+
+
+	
 	$user_in_session = $_SESSION['u_username']; 
 
 	$file = $_FILES['nest-file'];
@@ -22,11 +25,12 @@ if (isset($_POST['uploadNestButton'])) {
 	$fileExt = explode('.', $fileName);
 	$fileActualExt = strtolower(end($fileExt)); 
 	$allowed = array('csv', 'txt'); 
+
 	if (in_array($fileActualExt, $allowed)) {
 		if ($fileError === 0){
 			if ($fileSize < 100000){ 
 				$fileNameNew = uniqid($user_in_session,true).".".$fileActualExt; 
-				$fileDestination = 'includes/uploads/users/'. $_SESSION['u_username']. '/temp/' . $fileNameNew;
+				$fileDestination = 'User/'. $_SESSION['u_username']. '/temp/' . $fileNameNew;
 				move_uploaded_file($fileTmpName, $fileDestination);
 				$_SESSION['nestFileName'] = $fileNameNew;
 				$_SESSION['nestFileDir'] = $fileDestination;

@@ -9,18 +9,21 @@ session_start();
 
 
 if (isset($_POST['generate'])) {
+	echo '<script>console.log(123);</script>';
 
 	if ($_SESSION['nestFileName'] == null || $_SESSION['nestFileDir'] == null || $_SESSION['areaFileName'] == null || $_SESSION['areaFileDir'] == null){
 		header("Location: index.php?somesFilesNotUploaded");
 		
+		
 	} else {
 
-		$currentNestFile = $_SESSION['nestFileName'];
-		$currentNestFileDir = $_SESSION['nestFileDir'];
-		$currentAreaFile = $_SESSION['areaFileName'];
-		$currentAreaFileDir = $_SESSION['areaFileDir'];
+		
+
+		// run map gen 
+
+
 		header("Location: index.php?generated");
-		echo '<script>console.log(123);</script>';
+		
 		
 	
 

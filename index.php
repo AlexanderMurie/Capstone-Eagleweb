@@ -168,15 +168,9 @@ Purpose: Main page which controls whether the user sees the home page or the log
 											<p style="color:#D2691E; text-align: center; padding-left: 10px; padding-top:10px; padding-bottom: 30px; font-style: italic;">(.shp files only)</p>
 											
                   							<form action="uploadArea.php" method="POST" enctype="multipart/form-data"> 
-                  								<input type="file" name="dbf-file">
-                    							<button style="float: bottom;" type="submit" name="uploadAreaButton">UPLOAD DBF</button>
+                  								<input type="file" name="area-files[]" multiple>
+                    							<button style="float: bottom;" type="submit" name="uploadAreaButton">UPLOAD AREA</button>
                								</form>
-
-               								<form action="uploadArea.php" method="POST" enctype="multipart/form-data"> 
-                  								<input type="file" name="prj-file">
-                    							<button style="float: bottom;" type="submit" name="uploadAreaButton">UPLOAD PRJ</button>
-               								</form>
-
 
 
                							<p style="color: red; text-align:center; padding-top: 30px; padding-bottom:60px">By uploading your data you consent to having it recorded and stored by Eagleweb. For any queries, please contact eagleweb@eagleweb.com.</p>
@@ -216,7 +210,7 @@ Purpose: Main page which controls whether the user sees the home page or the log
 								
 
 										<form action="generate.php" method="POST" enctype="multipart/form-data">
-											<button name="generate">GENERATE</button>
+											<button name="generate">MAKE MAP</button>
 										</form>	
 
 									</div>

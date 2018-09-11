@@ -17,7 +17,9 @@ if (isset($_POST['generate'])) {
 		
 	} else {
 
+		// execute calcbounds.py via shell here
 		
+
 
 		// run map gen 
 

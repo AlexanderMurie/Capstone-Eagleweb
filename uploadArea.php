@@ -20,6 +20,7 @@ if (isset($_POST['uploadAreaButton'])) {
 
 
 	$user_in_session = $_SESSION['u_username']; 
+	$allowed = array('dbf','prj','qpj','shx','shp','txt');
 
 	// dbf
 	// prj
@@ -27,44 +28,58 @@ if (isset($_POST['uploadAreaButton'])) {
 	// shx
 	// shp
 
-	$fileDbf = $_FILES['dbf-file'];
-	$fileNameDbf = $_FILES['dbf-file']['name'];
-	$fileTmpNameDbf = $_FILES['dbf-file']['tmp_name'];
-	$fileSizeDbf = $_FILES['dbf-file']['size'];
-	$fileErrorDbf = $_FILES['dbf-file']['error'];
-	$fileTypeDbf = $_FILES['dbf-file']['type'];
+
+	/*
+	$file = $_FILES['area-files'];
+	$fileName = $_FILES['area-files']['name'];
+	$fileTmpName = $_FILES['area-files']['tmp_name'];
+	$fileSize = $_FILES['area-files']['size'];
+	$fileError = $_FILES['area-files']['error'];
+	$fileType = $_FILES['area-files']['type'];
+	*/
 
 
-	$filePrj = $_FILES['dbf-file'];
-	$fileNameDbf = $_FILES['dbf-file']['name'];
-	$fileTmpNameDbf = $_FILES['dbf-file']['tmp_name'];
-	$fileSizeDbf = $_FILES['dbf-file']['size'];
-	$fileErrorDbf = $_FILES['dbf-file']['error'];
-	$fileTypeDbf = $_FILES['dbf-file']['type'];
-
+	if (isset($_FILES['area-files']['name'])){
 
 
 
 
-	$fileExt = explode('.', $fileNameDbf);
-	$fileActualExt = strtolower(end($fileExt)); 
-	$allowed = array('dbf', 'prj', 'qpj', 'shx' ,'shp', 'txt'); 
+		$total_files = count($_FILES['area-files']['name']);
 
-	if (in_array($fileActualExt, $allowed)) {
-		if ($fileErrorDbf === 0){
-			if ($fileSizeDbf < 500000){ 
-				$fileNameNew = uniqid($user_in_session,true).".".$fileActualExt; 
-				$fileDestination = 'User/'. $_SESSION['u_username']. '/temp/' . $fileNameNew;
-				move_uploaded_file($fileTmpNameDbf, $fileDestination);
-				$_SESSION['dbfFileName'] = $fileNameNew;
-				$_SESSION['dbfFileDir'] = $fileDestination;
-				copy($fileDestination, 'includes/uploads/boundary_data_dump/' . $fileNameNew);
 
-				header("Location: index.php?uploadareasuccess"); 
+		if ($total_files != 5){
+			header("Location: index.php?notFiveAreaFiles");
 
 
 
+		} else {
 
+		
+
+		for ($key = 0; $key < $total_files; $key++){ 
+
+
+			if (isset($_FILES['area-files']['name'][$key]) && $_FILES['area-files']['size'] > 0){
+
+
+				$file = $_FILES['area-files'];
+				$fileName = $_FILES['area-files']['name'][$key];
+				$fileTmpName = $_FILES['area-files']['tmp_name'][$key];
+				$fileSize = $_FILES['area-files']['size'][$key];
+				$fileError = $_FILES['area-files']['error'][$key];
+				$fileType = $_FILES['area-files']['type'][$key];
+
+				$fileExt = explode('.', $fileName);
+				$fileActualExt = strtolower(end($fileExt)); 
+				if (in_array($fileActualExt, $allowed)) {
+					if ($fileError === 0){
+						if ($fileSize < 500000){ 
+							$fileNameNew = uniqid($user_in_session,true).".".$fileActualExt; 
+							$fileDestination = 'User/'. $_SESSION['u_username']. '/temp/' . $fileNameNew;
+							move_uploaded_file($fileTmpName, $fileDestination);
+							$_SESSION['areaFileDir'] = $fileDestination;
+							copy($fileDestination, 'includes/uploads/boundary_data_dump/' . $fileNameNew);
+							header("Location: index.php?uploadareasuccess"); 
 
 
 			} else {
@@ -77,5 +92,10 @@ if (isset($_POST['uploadAreaButton'])) {
 		echo 'Boundary area must be a .shp file!';
 	}
 
+}
+}
+}
 
+
+}
 }

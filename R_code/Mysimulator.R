@@ -10,6 +10,8 @@
 #Consider removing some global variables and replacing them with local variables.
 username <- ""
 userDataFile <- ""
+shapeFileName <- ""
+
 dem <- "digitalElevationMap"
 dev <- "boundaryMap"
 dev.terrain <- ""
@@ -22,7 +24,7 @@ rar <- ""
 
 #file paths
 nestFilePath <- ""  #/User/Bob/temp/nest_locations.csv
-shapeFilePath <- "" #/User/Bob/temp
+# shapeFilePath <- "" #/User/Bob/temp
 focalFilePath <- "" #./Focal
 
 #create a list of srtm variables to store each srtm file path
@@ -45,7 +47,8 @@ installPacks <- function()
 #                           slope_sd = the standard deviation of the slope in a grid around each GPS fix
 #                           alt = terrain altitude (elevation)
 
-#The code block below requires the "effects" package.
+# This code block below requires the "effects" package.
+# It reads Megan's given riskmod.rds file and stores its reference and assigns it to a global variable.
 plotEffects <- function() 
 {
   print("ploting effects") #TRACER
@@ -60,31 +63,28 @@ plotEffects <- function()
   print("effects plotted.") #TRACER
 }
 
-##### WEBSITE SIMULATION: CAPE POINT#####
+# Load the rgdal package but continue execution if the package fails to load.
+# Read shape files and stores them as a spatial vector object called 'dev'. 
+# Assign 'dev' to replace the global variable named 'dev'
 readGeoFiles <- function()
 {
   #Require packages
   require(rgdal)
   print("rgdal loaded") #TRACER
     
-  #Scenario: A developer is interested in putting a wind farm on the Cape Penninsula, there is one Verreaux's eagle nest on site:
-  #This is the development area as a shapefile:
-  #NB: you should be able to enter any shapfile/coordinates here and that links to the next step to souce the DEMs, 
-  # consider inventing a development in the Karoo... as I have invented this one.
-  
   print("reading shape files ...") #TRACER
   
   #join the home directory to the shape File Path variable.
-  fShapeFilePath = paste(".", shapeFilePath, sep = "")
-  dev = readOGR(fShapeFilePath)  #e.g. dsn = ".", layer (name) = "penninsula")
+  # fShapeFilePath = paste(".", shapeFilePath, sep = "")
+  # dev = readOGR(fShapeFilePath)  #e.g. dsn = ".", layer (name) = "penninsula")
+  fShapeFileName = paste(".", shapeFileName, sep = "")
+  dev = readOGR(fShapeFileName) #read shape files with the shapefilename in the current directory.
   
   #dsn is the data source name, i,e, the folder directory. So "." represents the current folder directory.
   assign("dev", dev, envir = .GlobalEnv)
   print("shape files read")                #TRACER
   
-  #load 30m SRTM DEMS: 1 Arc-second (you will need to souces these online somehow for other developement areas)
-  #srtm30a <-raster("./SRTM/s34_e018_1arc_v3.tif")
-  #srtm30b <-raster("./SRTM/s35_e018_1arc_v3.tif")
+  #load 30m SRTM DEMS: 1 Arc-second 
   print("created srtm rasters")            #TRACER
   
   #merge the two together:
@@ -96,10 +96,10 @@ readGeoFiles <- function()
   print("srtm files merged.")               #TRACER
   
   #Cleanup
-  #rm(srtm30a, srtm30b)  #remove the objects
-  #rm(srtmFileList)  #remove the list to clear up memory
+  rm(srtmFileList)  #remove the list to clear up memory
 }
 
+# Visualise the digital elevation map with the development boundaries overlayed by plotting the map.
 visualisePlots <- function()
 {
   print("Plotting DEM & DEV...")                 #TRACER
@@ -114,7 +114,8 @@ visualisePlots <- function()
   print("DEM & DEV plotted.")                 #TRACER
 }
 
-#Extract the info needed for the model:
+# Extract the info needed for the model from the digital elevation map reference and the focal file list.
+# Then update the global variables values with those inside this method.
 extractData <- function()
 {
   print("extracting data...")   #TRACER
@@ -135,6 +136,10 @@ extractData <- function()
   print("assignment complete.") #TRACER
 }
 
+# make a terrain.stack of the slope, aspect and slope_sd3 variables.
+# crop the terrain.stack by the development boundaries 'dev'.
+# create a mask from the development boundary and the terrain stack named 'rar'.
+# update the global variable 'rar'.
 handleTerrainStack <- function()
 {
   print("handling terrain stack...")   #TRACER
@@ -153,7 +158,8 @@ handleTerrainStack <- function()
   print("terrain stack complete.")
 }
 
-#convert the raster to points, and convert these points to a dataframe:
+# convert the raster to points, and convert these points to a dataframe
+# update the global variable 'dev.terrain'.
 convertToDataframe <- function() 
 {
   print("converting raster to points, and the points to a dataframe...")                 #TRACER
@@ -168,6 +174,8 @@ convertToDataframe <- function()
   assign("dev.terrain", dev.terrain, envir = .GlobalEnv)
 }
 
+# change the 'x' and 'y' column names to 'longitude' and 'latitude' respectively.
+# update the global variable 'dev.terrain' to reflect the column name changes.
 changeColNames <- function()
 {
   print("changing column names to longitude and latitude...")   #TRACER
@@ -180,9 +188,10 @@ changeColNames <- function()
   print("column names changed.")                 #TRACER
 }
 
-#add distance to nes: dist_nest:
-#The developer needs to provide the nest coordinates, here I input them:
-#consider choosing a random area in the Karoo, select any cliff and simulate a Verreaux's eagle nest there and one more 3-5 km away on another cliff
+# Read nest coordinates stored in a .csv file from a file path.
+# Update the dev.terrain table with nest latitude and longitude coordinates.
+# Calculate the distance between the nest and each grid cell (now each row in the dataframe):
+# Update the dev.terrain table to reflect the a new column called 'nest_dist'.
 handleNestCoordsCSV <- function() 
 {
   print("Handling nest coordinatess from a CSV file...")   #TRACER
@@ -257,7 +266,8 @@ handleNestCoordsCSV <- function()
   print("nest coordinatess added to DB.")   #TRACER
 }
 
-#add categorical aspect to dataframe:
+# Add categorical aspect to dataframe:
+# Update the dev.terrain table to reflect a new column called 'asp4.
 addCat <- function()
 {
   print("adding category aspect to dataframe...")   #TRACER
@@ -272,7 +282,8 @@ addCat <- function()
   print("category aspect added.")   #TRACER
 }
 
-#Data frame in now ready to run the model over:
+# Run the model to predict the collision map using the dev.terrain dataframe and the riskmod.
+# Call the plotRiskMap method and pass it the 'pred' dataframe reference.
 runModel <- function() 
 {
   print("running model prediction...")   #TRACER
@@ -286,7 +297,7 @@ runModel <- function()
   plotRiskMap(pred)
 }
 
-#RISK PLOT:
+# plot the risk map with color and write it to a csv file called 'capepoint_risk'.
 plotRiskMap <- function(pred)
 {
   print("plotting risk map...")   #TRACER
@@ -305,6 +316,10 @@ plotRiskMap <- function(pred)
   writeRaster(risk_plot, "capepoint_risk", format = "GTiff", overwrite = TRUE) #Print out a Gtiff of the risk-map.
 }
 
+# load the raster package. 
+# read the user data csv file and store the file paths for the nest data, the shape files,
+# the srtm files and the focal files associated with the srtm files.
+# update the global values for the relevant lists and file paths.
 readUserCSVFile <- function() #Read via CSV
 {
   print("reading user CSV file ...") #TRACER
@@ -343,54 +358,24 @@ readUserCSVFile <- function() #Read via CSV
       
       #join the home directory to the srtm File Path variable.
       nsrtmFilePath = paste(".", srtmFilePath, sep = "")
-      
-      #get a substring of the srtm file name
-      # filePath <- "/SRTM/S35E018.hgt"
-      # print("printing srtmFilePath...")
-      # print(filePath, max.levels = 0)
-      
-      #split the filepath based on '/'
-      #print(is.character(srtmFilePath))
       convertSRTMFP <- as.character(srtmFilePath) #srtmFilePath is a factor. Convert to a character
-      
-      #print(convertSRTMFP)
-      #print(is.character(convertSRTMFP))
-      
       testSplit <- strsplit(convertSRTMFP, split = "/", fixed = TRUE) #strsplit does not work on factors.
-      # print(testSplit)     #TRACER
       
       #get srtm file name with extension
       srtmFilewExtension <- tail(testSplit[[1]],1) #for a single string, '[[' converts the 'list' to a 'vector' and gets the last element with 'tail']]
-      # print(srtmFilewExtension)
       
       #only get the srtm file name
       getSRTMFileName<- strsplit(srtmFilewExtension, ".", fixed = TRUE)
-      # print(getSRTMFileName)
       
       #add .tif to the srtm file name --> creating the focal file name.
       focalFile <- paste0(head(getSRTMFileName[[1]],1), ".tif")
-      # print(focalFile)
-      
       focalFilePath <- paste("./Focal/", focalFile, sep = "")
-      # print(focalFilePath)
       
       #add raster of new srtm file path to the srtm file list postion of (row counter - 2).
       srtmFileList[[myRowCounter-2]] <- raster(nsrtmFilePath)
       focalFileList[[myRowCounter-2]] <- raster(focalFilePath)
     }
   }
-
-  # print("Printing srtm file list")
-  # for (i in srtmFileList)
-  # {
-  #   print(i)
-  # }
-  # 
-  # print("Printing focal file list")
-  # for (i in focalFileList)
-  # {
-  #   print(i)
-  # }
   
   #assign global variables (x), to equal the local variables value.
   assign("nestFilePath", nestFilePath, envir = .GlobalEnv)
@@ -401,28 +386,25 @@ readUserCSVFile <- function() #Read via CSV
   print("Finished reading user CSV file.") #TRACER
 }
 
+# Start the program and accept two parameters from Naeem's Python script.
+# Accept username and the name of the user's data file.
+# then call the methods inside this program in a sequential and logical order.
 main <- function()
 {
   args <- commandArgs(trailingOnly = TRUE)
   
   if (!is.na(args[1]) && !is.na(args[2])) print("sufficient input")
   {
-    #Read via TERMINAL
-    #assign("filenameCSV", args[1], envir = .GlobalEnv) #set the filenameCSV variable to equal args[1].
-    #assign("shpFileLayerName", args[2], envir = .GlobalEnv) #set the shpFileLayerName variable to equal args[2].
-    
     #Read via Naeem's Python program.
     print("reading user input ...") #TRACER
     assign("username", args[1], envir = .GlobalEnv)
-    assign("userDataFile", args[2], envir = .GlobalEnv)
-    
-    #HARDCODED ARGS FOR TESTING
-    #assign("username", "Bob", envir = .GlobalEnv)
-    #assign("userDataFile", "userData.csv", envir = .GlobalEnv)
+    assign("shapeFileName", args[2], envir = .GlobalEnv) #set the shpFileLayerName variable to equal args[2].
+    assign("userDataFile", args[3], envir = .GlobalEnv) #set the filenameCSV variable to equal args[1].
   }
 
   #Tracer statements
   cat(username, sep = "\n")   #TRACER
+  cat(shapeFileName, sep = "\n")   #TRACER
   cat(userDataFile, sep = "\n")   #TRACER
   
   #Begin the method train!

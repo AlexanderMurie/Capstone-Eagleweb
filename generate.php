@@ -17,12 +17,10 @@ if (isset($_POST['generate'])) {
 		
 	} else {
 
-		$currentNestFile = $_SESSION['nestFileName'];
-		$currentNestFileDir = $_SESSION['nestFileDir'];
-		$currentAreaFile = $_SESSION['areaFileName'];
-		$currentAreaFileDir = $_SESSION['areaFileDir'];
+		
 
 		// run map gen 
+
 
 		header("Location: index.php?generated");
 		

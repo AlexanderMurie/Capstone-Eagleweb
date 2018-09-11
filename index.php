@@ -187,7 +187,7 @@ Purpose: Main page which controls whether the user sees the home page or the log
 							
 
 										<form style="padding-left:30%; padding-right: 30%;"action="clearAll.php" method="POST">
-											<button style="float: bottom;" type="submit" name="clearButton">CLEAR DATA</button>
+											<button style="float: bottom;" type="submit" name="clearButton">GENERATE</button>
 										</form>
 									<p style="color: red; text-align:center; padding-top: 30px; padding-bottom:60px">Your data will still be stored on the Eagleweb system, even if cleared. For any queries, please contact eagleweb@eagleweb.com.</p>
 									</div>
@@ -195,11 +195,22 @@ Purpose: Main page which controls whether the user sees the home page or the log
 								<script src="clearButtonModal.js"></script>
 					
 
+
+
+
+
+
+
+
+
 								<div id="genModal" class = "genModal">
 									<div class="modal-content">
 										<span class="closeButtonGen">&times;</span>
 								
-											<button id="generate">generate</button>
+
+										<form action="generate.php" method="POST" enctype="multipart/form-data">
+											<button name="generate">GENERATE</button>
+										</form>	
 
 									</div>
 								</div>

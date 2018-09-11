@@ -55,7 +55,8 @@ if (isset($_POST['submit'])) {
 						header("Location: ../index.php?login=success");
 
 						$currdir = getcwd();
-						mkdir($currdir . "/uploads/users/". $_SESSION['u_username'] . "/temp", 0777, true);
+						$currdirNew = str_replace("includes", "", $currdir);
+						mkdir($currdirNew . "/User/". $_SESSION['u_username'] . "/temp", 0777, true);
 
 						exit();
 						

@@ -14,7 +14,18 @@ session_start();
 
 if (isset($_POST['uploadAreaButton'])) {
 
+
+	
+
+
+
 	$user_in_session = $_SESSION['u_username']; 
+
+	// dbf
+	// prj
+	// qpj
+	// shx
+	// shp
 
 	$file = $_FILES['area-file'];
 	$fileName = $_FILES['area-file']['name'];
@@ -22,6 +33,9 @@ if (isset($_POST['uploadAreaButton'])) {
 	$fileSize = $_FILES['area-file']['size'];
 	$fileError = $_FILES['area-file']['error'];
 	$fileType = $_FILES['area-file']['type'];
+
+
+
 
 	$fileExt = explode('.', $fileName);
 	$fileActualExt = strtolower(end($fileExt)); 
@@ -32,7 +46,7 @@ if (isset($_POST['uploadAreaButton'])) {
 		if ($fileError === 0){
 			if ($fileSize < 500000){ 
 				$fileNameNew = uniqid($user_in_session,true).".".$fileActualExt; 
-				$fileDestination = 'includes/uploads/users/'. $_SESSION['u_username']. '/temp/' . $fileNameNew;
+				$fileDestination = 'User/'. $_SESSION['u_username']. '/temp/' . $fileNameNew;
 				move_uploaded_file($fileTmpName, $fileDestination);
 				$_SESSION['areaFileName'] = $fileNameNew;
 				$_SESSION['areaFileDir'] = $fileDestination;

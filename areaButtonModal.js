@@ -13,7 +13,6 @@ var modalCloseButton = document.getElementsByClassName('closeButtonArea')[0];
 // Listeners
 buttonArea.addEventListener('click', openModal);
 modalCloseButton.addEventListener('click', closeModal);
-window.addEventListener('click', clickOutside);
 //
 
 
@@ -31,8 +30,3 @@ function closeModal() {
 
 //clickOutside(e) performs the same function as closeModal.
 // However, it triggers on click anywhere outside of the modal Area menu.
-function clickOutside(e) {
-	if (e.target == modalarea){
-		modalarea.style.display = 'none';
-	}
-}

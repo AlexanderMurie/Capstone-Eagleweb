@@ -1,5 +1,5 @@
 Name,Path
 nest,/User/Bob/temp/nest_locations.csv
 shape,/User/Bob/temp
-srtm,/SRTM/s34_e018_1arc_v3.tif
-srtm,/SRTM/s35_e018_1arc_v3.tif
+srtm,/SRTM/S34E018.tif
+srtm,/SRTM/S35E018.tif

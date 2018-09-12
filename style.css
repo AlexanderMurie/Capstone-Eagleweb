@@ -6,11 +6,11 @@ Purpose: style.css contains the website styling for all the buttons, wrappers, m
 
 
 
-/* 
+/*
 html5doctor.com Reset Stylesheet
 v1.6.1
 Last Updated: 2010-09-17
-Author: Richard Clark - http://richclarkdesign.com 
+Author: Richard Clark - http://richclarkdesign.com
 (Used by Alexander Murie, 2018-08-12, Eagleweb)
 */
 
@@ -23,7 +23,7 @@ b, i,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, figcaption, figure, 
+article, aside, canvas, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section, summary,
 time, mark, audio, video {
     margin:0;
@@ -40,7 +40,7 @@ body {
 }
 
 article,aside,details,figcaption,figure,
-footer,header,hgroup,menu,nav,section { 
+footer,header,hgroup,menu,nav,section {
     display:block;
 }
 
@@ -76,7 +76,7 @@ ins {
 /* change colours to suit your needs */
 mark {
     background-color:#ff9;
-    color:#000; 
+    color:#000;
     font-style:italic;
     font-weight:bold;
 }
@@ -99,7 +99,7 @@ table {
 hr {
     display:block;
     height:1px;
-    border:0;   
+    border:0;
     border-top:1px solid #cccccc;
     margin:1em 0;
     padding:0;
@@ -113,7 +113,24 @@ input, select {
 
 /*Homepage content styles*/
 
-.aboutBox {
+/*
+.backgroundHome
+  {
+    height: 80%;
+    width: 40%;
+    z-index: 100;
+    background-image: url("images/testbackground.jpeg");
+    background-repeat: no-repeat;
+    background-position: centre;
+    background-attachment: fixed;
+    background-size: cover;
+
+    position: relative;
+  }
+*/
+
+.aboutBox
+{
     height: 80%;
     width: 40%;
     background-color: white;
@@ -150,39 +167,35 @@ input, select {
   width: 1500px;
   height: 1500px;
   top: 0;
-  
+
   right:0;
 }
-
-
 
 /*Panel styles (right, left, bottom)*/
 
 .sidepanelRight {
 
-    height: 100%; 
-    width: 200px; 
-    position: fixed; 
-    z-index: 1000; 
-    top: 0; 
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
     right: 0;
-    background-color: #f5f5dc; 
-    overflow-x: hidden; 
+    background-color: #f5f5dc;
+    overflow-x: hidden;
     padding-top: 20px;
 }
 
-
-
 .sidepanelLeft {
 
-    height: 100%; 
-    width: 200px; 
-    position: fixed; 
-    z-index: 1; 
-    top: 0; 
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
     left: 0;
-    background-color: #f5f5dc; 
-    overflow-x: hidden; 
+    background-color: #f5f5dc;
+    overflow-x: hidden;
     padding-top: 20px;
 }
 
@@ -218,7 +231,7 @@ input, select {
     height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.8);
-    
+
 }
 
 .nestModal {
@@ -231,7 +244,7 @@ input, select {
     height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.8);
-    
+
 }
 
 
@@ -245,7 +258,7 @@ input, select {
     height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.8);
-    
+
 }
 
 
@@ -259,7 +272,7 @@ input, select {
     height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.8);
-    
+
 }
 
 .exportModal {
@@ -272,7 +285,7 @@ input, select {
     height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.8);
-    
+
 }
 
 .modal-content {
@@ -282,7 +295,7 @@ input, select {
     padding: 20px;
     width: 30%;
 
-    box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2), 0 7px 20px 0 rgba(0,0,0,0.17); 
+    box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2), 0 7px 20px 0 rgba(0,0,0,0.17);
     animation-name: modalopen;
     animation-duration: 1s;
 }
@@ -319,7 +332,7 @@ input, select {
     font-size: 20px;
     font-weight: bold;
 
-    
+
 }
 
 .uploadButton:hover {
@@ -481,7 +494,7 @@ input, select {
 }
 
 .buttonSearch:hover {
-    
+
     background-color: RoyalBlue;
 }
 
@@ -503,7 +516,7 @@ input, select {
 }
 
 .buttonMegan:hover {
-    
+
     background-color: RoyalBlue;
 }
 
@@ -523,7 +536,7 @@ input, select {
 }
 
 .buttonGenerate:hover {
-    
+
     background-color: RoyalBlue;
 }
 
@@ -534,7 +547,7 @@ input, select {
     bottom: 0;
     right: 0;
     width: 100px;
-    
+
     background-color: DodgerBlue; /* Blue background */
     border: none; /* Remove borders */
     color: white; /* White text */
@@ -544,7 +557,7 @@ input, select {
 }
 
 .buttonExport:hover {
-    
+
     background-color: RoyalBlue;
 }
 
@@ -561,19 +574,18 @@ input, select {
     display: block;
 }
 
-
-.main-wrapper{
+/*
+.main-wrapper
+{
     overflow: none;
     margin: 0 auto;
     width: 1000px;
-
-
 }
-
+*/
 
 a {
-   text-decoration: none; 
-   
+   text-decoration: none;
+
 
 }
 
@@ -611,7 +623,7 @@ header nav ul li a {
 header .nav-login {
     z-index:2;
 
-    
+
     float: right;
 }
 
@@ -640,7 +652,7 @@ header .nav-login form button {
     z-index:1;
     float: left;
     width: 60px;
-    height: 30px; 
+    height: 30px;
     margin-right: 10px;
     border: none;
     background-color: #f3f3f3;
@@ -722,6 +734,3 @@ header .nav-login a {
 .signup-form button:hover {
     background-color: #111;
 }
-
-
-

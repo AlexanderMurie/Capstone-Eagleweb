@@ -9,6 +9,14 @@ Purpose: Logs user out, ends their session, and redirects the user to the homepa
 
 if (isset($_POST['submit'])) {
 	session_start();
+
+	$cwd = $_SESSION['workingDir'];
+	foreach(glob($cwd.'*.*') as $file){
+		unlink($file);
+	}
+
+
+
 	session_unset();
 	session_destroy();
 	header("Location: ../index.php");

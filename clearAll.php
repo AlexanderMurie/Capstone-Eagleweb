@@ -26,6 +26,7 @@ if (isset($_SESSION['areaFileDir'])){
 }
 
 $dir = getcwd() . "/User/" . $_SESSION['u_username'] . "/temp/";
+$_SESSION['workingDir'] = $dir;
 foreach(glob($dir.'*.*') as $file){
 	unlink($file);
 }

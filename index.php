@@ -188,7 +188,7 @@ Purpose: Main page which controls whether the user sees the home page or the log
 							
 
 										<form style="padding-left:30%; padding-right: 30%;"action="clearAll.php" method="POST">
-											<button style="float: bottom;" type="submit" name="clearButton">GENERATE</button>
+											<button style="float: bottom;" type="submit" name="clearButton">CLEAR</button>
 										</form>
 									<p style="color: red; text-align:center; padding-top: 30px; padding-bottom:60px">Your data will still be stored on the Eagleweb system, even if cleared. For any queries, please contact eagleweb@eagleweb.com.</p>
 									</div>

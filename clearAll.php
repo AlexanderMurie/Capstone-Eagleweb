@@ -25,6 +25,12 @@ if (isset($_SESSION['areaFileDir'])){
 	$_SESSION['areaFileDir'] = null;
 }
 
+$dir = getcwd() . "/User/" . $_SESSION['u_username'] . "/temp/";
+foreach(glob($dir.'*.*') as $file){
+	unlink($file);
+}
+
+
 
 header("Location: index.php?dataCleared");
 

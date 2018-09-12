@@ -49,6 +49,7 @@ if (isset($_POST['uploadAreaButton'])) {
 
 		if ($total_files != 5){
 			header("Location: index.php?notFiveAreaFiles");
+			exit();
 
 
 

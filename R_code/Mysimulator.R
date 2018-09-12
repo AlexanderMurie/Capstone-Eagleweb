@@ -24,7 +24,7 @@ rar <- ""
 
 #file paths
 nestFilePath <- ""  #/User/Bob/temp/nest_locations.csv
-# shapeFilePath <- "" #/User/Bob/temp
+shapeFilePath <- "" #/User/Bob/temp
 focalFilePath <- "" #./Focal
 
 #create a list of srtm variables to store each srtm file path
@@ -74,11 +74,18 @@ readGeoFiles <- function()
     
   print("reading shape files ...") #TRACER
   
+  #FOR ME TO RUN
   #join the home directory to the shape File Path variable.
   # fShapeFilePath = paste(".", shapeFilePath, sep = "")
   # dev = readOGR(fShapeFilePath)  #e.g. dsn = ".", layer (name) = "penninsula")
-  fShapeFileName = paste(".", shapeFileName, sep = "")
+  
+  # shapeFileName <- paste0("/", shapeFileName, sep = "")
+  # END
+  
+  # FOR NAEEM TO RUN
+  fShapeFileName = paste(fShapeFilePath, shapeFileName, sep = "")
   dev = readOGR(fShapeFileName) #read shape files with the shapefilename in the current directory.
+  # END
   
   #dsn is the data source name, i,e, the folder directory. So "." represents the current folder directory.
   assign("dev", dev, envir = .GlobalEnv)
@@ -96,7 +103,7 @@ readGeoFiles <- function()
   print("srtm files merged.")               #TRACER
   
   #Cleanup
-  rm(srtmFileList)  #remove the list to clear up memory
+  #rm(srtmFileList)  #remove the list to clear up memory
 }
 
 # Visualise the digital elevation map with the development boundaries overlayed by plotting the map.
@@ -303,7 +310,7 @@ plotRiskMap <- function(pred)
   print("plotting risk map...")   #TRACER
   toplot=cbind.data.frame(long= dev.terrain$longitude, lat=dev.terrain$latitude, pred=pred$pred) #collision map file.
   
-  plottop = subset.data.frame(toplot, toplot$pred > 0.2) #Thabo's line. Cropped out the terrain with pred less than 0.2.
+  plottop = subset.data.frame(toplot, toplot$pred > 0.4) #Thabo's line. Cropped out the terrain with pred less than 0.4.
   print(head(plottop))
   
   risk_plot=rasterFromXYZ(plottop) #changed toplot to plottop to plot the cropped collision map.
@@ -314,6 +321,7 @@ plotRiskMap <- function(pred)
   
   print("risk map plotted")   #TRACER
   writeRaster(risk_plot, "capepoint_risk", format = "GTiff", overwrite = TRUE) #Print out a Gtiff of the risk-map.
+  write.csv(plottop, file = "My_risk_data.csv", na = "") # na = "" --> leaves out NAs
 }
 
 # load the raster package. 

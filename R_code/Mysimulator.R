@@ -74,17 +74,28 @@ readGeoFiles <- function()
     
   print("reading shape files ...") #TRACER
   
-  #FOR ME TO RUN
+  # FOR ME TO RUN
   # join the home directory to the shape File Path variable.
-  # fShapeFilePath = paste(".", shapeFilePath, sep = "")
-  # dev = readOGR(fShapeFilePath)  #e.g. dsn = ".", layer (name) = "penninsula")
-  
-  # shapeFileName <- paste0("/", shapeFileName, sep = "")
+  fShapeFilePath <- paste(".", shapeFilePath, sep = "")
+  dev <- readOGR(fShapeFilePath)  #e.g. dsn = ".", layer (name) = "penninsula")
   # END
   
-  # FOR NAEEM TO RUN
-  fShapeFileName = paste(fShapeFilePath, shapeFileName, sep = "")
-  dev = readOGR(fShapeFileName) #read shape files with the shapefilename in the current directory.
+  # FOR NAEEM TO RUN --> Broken atm..
+  # cat(shapeFileName, sep = "\n") #TRACER
+  # fShapeFilePath = paste(".", shapeFilePath, sep = "")
+  # shapeName = paste("", shapeFileName, sep = "")
+  # 
+  # x = nchar(shapeName) +3
+  # y = nchar(fShapeFilePath)
+  # fShapeFilePath = substring(fShapeFilePath,1 ,(y-x)-1)
+  # 
+  # cat(shapeFileName, sep = "\n") #TRACER
+  # cat(fShapeFilePath, sep = "\n") #TRACER
+  # 
+  # dev = readOGR(dsn = fShapeFilePath, layer = shapeName, verbose = FALSE)
+  # shapeFileName <- paste0("/", shapeFileName, sep = "")
+  # fShapeFileName <- paste(fShapeFilePath, shapeFileName, sep = "")
+  # dev = readOGR(fShapeFileName) #read shape files with the shapefilename in the current directory.
   # END
   
   #dsn is the data source name, i,e, the folder directory. So "." represents the current folder directory.
@@ -257,9 +268,13 @@ handleNestCoordsCSV <- function()
     # COMPARE NEST DISTANCE VALUES
     # compare the old nest val with the new nest val &
     # store the min nest distance in a new column named 'nest_dist'. 
-    if (nestCounter > 1)  #there is an old nest dist value so...
+    if (nestCounter > 1)  #for more than 1 nest.
     {
       dev.terrain$nest_dist = with (dev.terrain, pmin(nest_dist_old, nest_dist_new))
+    }
+    else #if there is only one nest location.
+    {
+      dev.terrain$nest_dist = dev.terrain$nest_dist_new
     }
     
     # print("Printing dev.terrain before nest_dist_old is updated")

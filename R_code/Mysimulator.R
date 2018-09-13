@@ -75,7 +75,7 @@ readGeoFiles <- function()
   print("reading shape files ...") #TRACER
   
   #FOR ME TO RUN
-  #join the home directory to the shape File Path variable.
+  # join the home directory to the shape File Path variable.
   # fShapeFilePath = paste(".", shapeFilePath, sep = "")
   # dev = readOGR(fShapeFilePath)  #e.g. dsn = ".", layer (name) = "penninsula")
   
@@ -110,13 +110,15 @@ readGeoFiles <- function()
 visualisePlots <- function()
 {
   print("Plotting DEM & DEV...")                 #TRACER
+  
+  png("rplot.png") #open a png file
+  
   #visualise this:
   plot(dem) #plots the digital elevation map using the merged raster.
   plot(dev, add=TRUE)  #plots the 'dev' aka development boundary on top of the 'dem' plot.
   #I replaced 'T' with 'TRUE' since 'T' can be redefined. See https://stackoverflow.com/questions/6789055/r-inconsistency-why-add-t-sometimes-works-and-sometimes-not-in-the-plot-funct
   
-  #output plot to a file
-  dev.off() #writes plot to a pdf file.
+  dev.off() #writes plot to a file.
   
   print("DEM & DEV plotted.")                 #TRACER
 }
@@ -308,20 +310,23 @@ runModel <- function()
 plotRiskMap <- function(pred)
 {
   print("plotting risk map...")   #TRACER
-  toplot=cbind.data.frame(long= dev.terrain$longitude, lat=dev.terrain$latitude, pred=pred$pred) #collision map file.
+  toplot = cbind.data.frame(long= dev.terrain$longitude, lat=dev.terrain$latitude, pred=pred$pred) #collision map file.
   
   plottop = subset.data.frame(toplot, toplot$pred > 0.4) #Thabo's line. Cropped out the terrain with pred less than 0.4.
   print(head(plottop))
   
-  risk_plot=rasterFromXYZ(plottop) #changed toplot to plottop to plot the cropped collision map.
+  risk_plot = rasterFromXYZ(plottop) #changed toplot to plottop to plot the cropped collision map.
   
-  colours=c("darkseagreen1","darkorange","red")
+  colours = c("darkseagreen1","darkorange","red")
+  
+  png("rplot.png") #open a png file
+  
   plot(risk_plot, col=colours)
-  plot(dev, add=T)
+  plot(dev, add=TRUE)
   
   print("risk map plotted")   #TRACER
   writeRaster(risk_plot, "capepoint_risk", format = "GTiff", overwrite = TRUE) #Print out a Gtiff of the risk-map.
-  write.csv(plottop, file = "My_risk_data.csv", na = "") # na = "" --> leaves out NAs
+  # write.csv(plottop, file = "My_risk_data.csv", na = "") # na = "" --> leaves out NAs
 }
 
 # load the raster package. 

@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1536074730184.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "536929138",
+    "id" : "942F8AEC",
+    "lastKnownWriteTime" : 1536137682,
+    "last_content_update" : 1536137682,
+    "path" : "~/Desktop/Prototype/Scripts/R_code/Mysimulator.R",
+    "project_path" : "Mysimulator.R",
+    "properties" : {
+        "cursorPosition" : "0,0",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

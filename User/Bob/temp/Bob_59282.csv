@@ -1,0 +1,7 @@
+Name,Path
+nest,/Users/naeemPC/Sites/Test002/Users/Bob/temp/nest_locations.csv
+shape,/Users/naeemPC/Sites/Test002/Users/Bob/temp/penninsula.shp
+srtm,/Users/naeemPC/Sites/Test002/SRTM/S35E018.tif
+srtm,/Users/naeemPC/Sites/Test002/SRTM/S34E018.tif
+srtmsd,/Users/naeemPC/Sites/Test002/Focal/S35E018.tif
+srtmsd,/Users/naeemPC/Sites/Test002/Focal/S34E018.tif

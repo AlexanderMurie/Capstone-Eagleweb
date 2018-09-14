@@ -1,8 +1,6 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Created on Sat Aug 25 11:45:51 2018
-
 @author: Naeem Levy
 
 Script function: This script creates a extent-boundry shapefile and outputs the path to a boundry shapefile.
@@ -14,8 +12,8 @@ Output: path to extent boundry
 Standard Methods for reading in shapefiles and outputting them used
 from the python gdalcookbook
 
-NOTE: Implement Error Handling
 NOTE: Currently only works in POSIX systems
+Ensure that this script has admin prielegeds eg. chmod +x 
 """
 
 from osgeo import ogr
@@ -31,25 +29,38 @@ if ( len(sys.argv) <1 ):
 else:
     try:
         toppath = (os.getcwd().rsplit("/",1))[0]
-        
+
         user = sys.argv[1]
         filename = sys.argv[2]
         nest = sys.argv[3]
-        
+
         infile = toppath+"/Users/"+user+"/temp/"+filename
-        
         #Standard way to read in shp file.
         inDriver = ogr.GetDriverByName("ESRI Shapefile")
-        inDataSource = inDriver.Open(infile, 0)
-        inLayer = inDataSource.GetLayer()
 
-        # Calculate extent
-        extent = inLayer.GetExtent()
-        inDataSource.Destroy()        
-        rasObject = gr.Raster(user,extent,infile,nest)
-        rasObject.filepath()
-        
-        
+        if inDriver is None:
+            print("Shapefile is broken or does not exist")
+            sys.exit
+        else:
+            inDataSource = inDriver.Open(infile, 0)
+            inLayer = inDataSource.GetLayer()
+            numFeatures = inLayer.GetFeatureCount()
+
+            if(numFeatures == None):
+                print("flag:False")
+                sys.exit
+            elif(numFeatures == 0 or numFeatures > 1):
+                print("flag:False")
+                sys.exit
+            else:
+                print("flag:True")
+                # Calculate extent
+                extent = inLayer.GetExtent()
+                inDataSource.Destroy()
+                rasObject = gr.Raster(user,extent,infile,nest)
+                rasObject.filepath()
+                inDataSource = None
+
+
     except Exception as e:
         print(e)
-    

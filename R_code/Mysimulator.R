@@ -15,6 +15,7 @@ shapeFileName <- ""
 dem <- "digitalElevationMap"
 dev <- "boundaryMap"
 dev.terrain <- ""
+nestCoords <- ""
 
 riskmod <- ""
 slope <- ""
@@ -80,22 +81,17 @@ readGeoFiles <- function()
   dev <- readOGR(fShapeFilePath)  #e.g. dsn = ".", layer (name) = "penninsula")
   # END
   
-  # FOR NAEEM TO RUN --> Broken atm..
-  # cat(shapeFileName, sep = "\n") #TRACER
-  # fShapeFilePath = paste(".", shapeFilePath, sep = "")
-  # shapeName = paste("", shapeFileName, sep = "")
-  # 
-  # x = nchar(shapeName) +3
+  #FOR NAEEM TO RUN # MODIFED by NAEEM
+  # fShapeFilePath = paste("", shapeFilePath, sep = "")
+  # shapeName = paste("", shapeFileName,sep ="")
+  # x = nchar(shapeName) + 3
   # y = nchar(fShapeFilePath)
-  # fShapeFilePath = substring(fShapeFilePath,1 ,(y-x)-1)
+  # fShapeFilePath = substring(fShapeFilePath,1,(y-x)-1)
   # 
-  # cat(shapeFileName, sep = "\n") #TRACER
-  # cat(fShapeFilePath, sep = "\n") #TRACER
+  # print(shapeName)
+  # print(fShapeFilePath)
   # 
-  # dev = readOGR(dsn = fShapeFilePath, layer = shapeName, verbose = FALSE)
-  # shapeFileName <- paste0("/", shapeFileName, sep = "")
-  # fShapeFileName <- paste(fShapeFilePath, shapeFileName, sep = "")
-  # dev = readOGR(fShapeFileName) #read shape files with the shapefilename in the current directory.
+  # dev = readOGR(dsn=fShapeFilePath, layer=shapeName, verbose=FALSE)
   # END
   
   #dsn is the data source name, i,e, the folder directory. So "." represents the current folder directory.
@@ -122,14 +118,14 @@ visualisePlots <- function()
 {
   print("Plotting DEM & DEV...")                 #TRACER
   
-  png("rplot.png") #open a png file
+  # png("rplot.png") #open a png file
   
   #visualise this:
   plot(dem) #plots the digital elevation map using the merged raster.
   plot(dev, add=TRUE)  #plots the 'dev' aka development boundary on top of the 'dem' plot.
   #I replaced 'T' with 'TRUE' since 'T' can be redefined. See https://stackoverflow.com/questions/6789055/r-inconsistency-why-add-t-sometimes-works-and-sometimes-not-in-the-plot-funct
   
-  dev.off() #writes plot to a file.
+  dev.off() #closes the plot file.
   
   print("DEM & DEV plotted.")                 #TRACER
 }
@@ -287,6 +283,8 @@ handleNestCoordsCSV <- function()
   }
 
   assign("dev.terrain", dev.terrain, envir = .GlobalEnv) #UPDATE global var 'dev.terrain'
+  assign("nestCoords", nestCoords, envir = .GlobalEnv)
+  print(nestCoords)
   print("nest coordinatess added to DB.")   #TRACER
 }
 
@@ -328,20 +326,45 @@ plotRiskMap <- function(pred)
   toplot = cbind.data.frame(long= dev.terrain$longitude, lat=dev.terrain$latitude, pred=pred$pred) #collision map file.
   
   plottop = subset.data.frame(toplot, toplot$pred > 0.4) #Thabo's line. Cropped out the terrain with pred less than 0.4.
-  print(head(plottop))
+  # print(head(plottop))
   
-  risk_plot = rasterFromXYZ(plottop) #changed toplot to plottop to plot the cropped collision map.
-  
+  risk_plot = rasterFromXYZ(plottop) # create a raster object from x, y and z values.
+    # changed toplot to plottop to plot the cropped collision map.
+  risk_raster <- writeRaster(risk_plot, "capepoint_risk", format = "GTiff", overwrite = TRUE) #Print out a Gtiff of the risk-map.
+
   colours = c("darkseagreen1","darkorange","red")
+ 
+  require(jpeg)
+  # Naeem Modifed this code block.
+  jpeg("ipplot1.jpg") # open a jpeg file form the current working directory
   
-  png("rplot.png") #open a png file
+  par(mar=c(0,0,0,0)) # removes margins
+  plot(risk_plot, col=colours, axes=FALSE, frame.plot=FALSE, legend=FALSE, box= FALSE)
+  # End of code block.
   
-  plot(risk_plot, col=colours)
-  plot(dev, add=TRUE)
+  # Mark nest locations on the plot
+  points(nestCoords$Longitudes, nestCoords$Latitudes, pch = 17) #pch is the character symbol of the point.
+
+  # plot(risk_plot, col=colours)
+  # plot(dev, add=TRUE) # overlay the dev boundary to the risk plot file.
   
   print("risk map plotted")   #TRACER
-  writeRaster(risk_plot, "capepoint_risk", format = "GTiff", overwrite = TRUE) #Print out a Gtiff of the risk-map.
+  # writeRaster(risk_plot, "capepoint_risk", format = "GTiff", overwrite = TRUE) #Print out a Gtiff of the risk-map.
   # write.csv(plottop, file = "My_risk_data.csv", na = "") # na = "" --> leaves out NAs
+  
+  # GET WIDTH AND HEIGHT OF RASTER FOR NAAEM TO OVERLAY IT ONTO THE WORLD MAP
+  print("Read jpeg file...")
+  
+  # checking file path.
+  # print(normalizePath("ipplot1.jpg"))
+  dev.off() # close jpeg file
+  
+  img <- readJPEG("C:\\Users\\Stevy T\\Desktop\\R_code_Final\\ipplot1.jpg")
+  print(dim(img))
+
+  print("Printing risk raster details...")
+  print(risk_raster) # The first two dimensions = the width and height of the image.
+  
 }
 
 # load the raster package. 

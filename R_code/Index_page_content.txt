@@ -1,0 +1,10 @@
+Eagleweb is a free online tool for assessing the collision risk of Black Eagles around wind farms. 
+
+Wind turbines are a green source of energy, but collisions with turbine blades can have a very negative effect on raptor populations. Large raptors are long-lived and breed slowly, so even a slight increase in mortality from collisions can have a long-term impact on bird populations. The impact of wind turbines can be minimized by avoiding installation in areas of high raptor use.
+
+Verreaux’s Eagle (or the Black Eagle) is a large soaring raptor that is widespread in mountainous regions of sub-Saharan Africa. This bird is particularly susceptible to collisions with wind turbines.
+
+Researchers at UCT’s Fitzpatrick Institute of Ornithology are running the Black Eagle Project - www.blackeagleproject.blogspot.com – where data on location, flight patterns, height and other variables are recorded from tagged Black Eagles. This data is then used to develop a model to predict flight patterns from nest locations and hence estimate collision risk.
+
+This website was developed on behalf of Mergan Murgatroyd and in partnership with the Black Eagles Project. The developers who worked on this website are: Naeem Levy, Alexander Murie and Steven Theron. 
+

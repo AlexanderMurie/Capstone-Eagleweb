@@ -333,12 +333,24 @@ plotRiskMap <- function(pred)
   risk_raster <- writeRaster(risk_plot, "capepoint_risk", format = "GTiff", overwrite = TRUE) #Print out a Gtiff of the risk-map.
 
   colours = c("darkseagreen1","darkorange","red")
- 
-  require(jpeg)
-  # Naeem Modifed this code block.
-  jpeg("ipplot1.jpg") # open a jpeg file form the current working directory
   
-  par(mar=c(0,0,0,0)) # removes margins
+  # print out and format sys time to only get the hours:minutes:seconds
+  # Sys.time()
+  # current_time <- format(Sys.time(), "%X")
+  # format(Sys.time(), "%a %b %d %X %Y")
+  
+  # join sys time to a string
+  png_file_name <- "ipplot1.png"
+  # risk_file_id <- paste(current_time, png_file_name, sep = "")
+  # print(risk_file_id)
+ 
+  # require(jpeg)
+  require (png)
+  # Naeem Modifed this code block.
+  # jpeg(risk_file_id) # open a jpeg file form the current working directory
+  png(png_file_name)
+  
+  par(mar=c(0,0,0,0), bg=NA) # removes margins
   plot(risk_plot, col=colours, axes=FALSE, frame.plot=FALSE, legend=FALSE, box= FALSE)
   # End of code block.
   
@@ -353,14 +365,14 @@ plotRiskMap <- function(pred)
   # write.csv(plottop, file = "My_risk_data.csv", na = "") # na = "" --> leaves out NAs
   
   # GET WIDTH AND HEIGHT OF RASTER FOR NAAEM TO OVERLAY IT ONTO THE WORLD MAP
-  print("Read jpeg file...")
+  print("Read image file...")
   
   # checking file path.
   # print(normalizePath("ipplot1.jpg"))
-  dev.off() # close jpeg file
+  dev.off() # close image file
   
-  img <- readJPEG("C:\\Users\\Stevy T\\Desktop\\R_code_Final\\ipplot1.jpg")
-  print(dim(img))
+  # img <- readJPEG("C:\\Users\\Stevy T\\Desktop\\R_code_Final\\ipplot1.jpg")
+  # print(dim(img))
 
   print("Printing risk raster details...")
   print(risk_raster) # The first two dimensions = the width and height of the image.
